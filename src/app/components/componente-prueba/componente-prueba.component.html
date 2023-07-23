@@ -1,0 +1,9 @@
+<ng-template *ngIf="product"><!-- ng-template crea un contenedor sin generar elemento html-->
+    <p>{{ product.title }}</p>
+    prueba
+</ng-template >
+<ng-template  *ngIf="!product">
+    <p>producto no renderizado</p>
+   
+</ng-template >
+
