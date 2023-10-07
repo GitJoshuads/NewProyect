@@ -1,27 +1,20 @@
-<p>llamada-binance works!</p>
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<style>
+    .crypto-item {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
   
-</head>
-<body>
-    <h2>Cotizaciones de criptomonedas</h2>
-    {{endpoint}}
-    --------------------------
-    {{data}}
-    --------------------------
-    <table class="tabla-css">
-        <thead>
-            <tr>
-                <th>Símbolo</th>
-                <th>Precio</th>
-            </tr>
-        </thead>
-        <tbody id="data">
-           
-        </tbody>
-    </table>
-
-    <script src="llamada-binance.component.ts"></script>
-</body>
-</html>
+    .crypto-symbol {
+      font-weight: bold;
+    }
+  
+    .crypto-price {
+      color: green;
+    }
+  </style>
+<div *ngFor="let item of cryptoData" class="crypto-item">
+    <p class="crypto-symbol">Símbolo: {{ item.symbol }}</p>
+    <p class="crypto-price">Precio: {{ item.price }}</p>
+</div>
