@@ -14,6 +14,16 @@
       color: green;
     }
   </style>
+<p>Criptomoneda Princial
+    <app-input preba="Criptomoneda Princial"></app-input>
+    <app-button (childEvent)="handleChildEvent($event)"></app-button>
+</p>
+
+<p>Criptomoneda Comparada
+    <app-input inputValue="inputValue"></app-input>
+  
+    <app-button></app-button>
+</p>
 <div *ngFor="let item of cryptoData" class="crypto-item">
     <p class="crypto-symbol">Símbolo: {{ item.symbol }}</p>
     <p class="crypto-price">Precio: {{ item.price }}</p>

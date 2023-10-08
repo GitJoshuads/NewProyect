@@ -22,4 +22,8 @@ import { CryptoPriceService } from '../../crypto-price.service';
         this.cryptoData = data;
       });
     }
+
+    handleChildEvent(evt: any){
+      alert(evt);
+    }
   }

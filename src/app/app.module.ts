@@ -4,19 +4,24 @@ import {HttpClientModule} from '@angular/common/http' ;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComponentePruebaComponent } from './components/componente-prueba/componente-prueba.component';
 import { LlamadaBinanceComponent } from './components/llamada-binance/llamada-binance.component';
+import { FormsModule } from '@angular/forms';
+import { InputComponent } from './components/input/input.component';
+import { ButtonComponent } from './components/button/button.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ComponentePruebaComponent,
-    LlamadaBinanceComponent
+    LlamadaBinanceComponent,
+    InputComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
