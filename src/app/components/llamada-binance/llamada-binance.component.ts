@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { CryptoPriceService } from '../../crypto-price.service';
 
 
@@ -10,8 +10,8 @@ import { CryptoPriceService } from '../../crypto-price.service';
   })
   export class LlamadaBinanceComponent implements OnInit {
     cryptoData: any[] = [];
-  
     constructor(private cryptoPriceService: CryptoPriceService) {}
+    listEvent:Array<string> = [];
   
     ngOnInit(): void {
       this.getCryptoPrices();
@@ -24,6 +24,10 @@ import { CryptoPriceService } from '../../crypto-price.service';
     }
 
     handleChildEvent(evt: any){
-      alert(evt);
+      if(evt === 'click' && this.listEvent.length){
+        alert(this.listEvent);
+      } else {
+        this.listEvent = evt === 'click'? '': evt;
+      }
     }
   }

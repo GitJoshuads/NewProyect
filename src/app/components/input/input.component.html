@@ -1,2 +1,2 @@
-<input type="text" [(ngModel)]="inputValue" placeholder="Escribe algo...">
+<input type="text" [(ngModel)]="inputValue" (ngModelChange)="onInputChange()"  placeholder="Escribe algo...">
 {{inputValue}}

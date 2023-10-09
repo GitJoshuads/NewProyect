@@ -7,14 +7,14 @@ import { Component, Output , EventEmitter } from '@angular/core';
 })
 
 export class InputComponent {
-  // app-child.component.ts
   @Output() childEvent = new EventEmitter<string>();
 
   inputValue: string = '';
-  preba:string="";
   constructor() {}
-  sendDataToParent() {
-    this.childEvent.emit(this.inputValue);
+  
+  onInputChange(){
+   console.log(this.inputValue)
+   this.childEvent.emit(this.inputValue);
   }
 }
 

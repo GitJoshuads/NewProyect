@@ -1,21 +1,6 @@
-<style>
-    .crypto-item {
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      padding: 10px;
-    }
-  
-    .crypto-symbol {
-      font-weight: bold;
-    }
-  
-    .crypto-price {
-      color: green;
-    }
-  </style>
+
 <p>Criptomoneda Princial
-    <app-input preba="Criptomoneda Princial"></app-input>
+    <app-input (childEvent)="handleChildEvent($event)"></app-input>
     <app-button (childEvent)="handleChildEvent($event)"></app-button>
 </p>
 
