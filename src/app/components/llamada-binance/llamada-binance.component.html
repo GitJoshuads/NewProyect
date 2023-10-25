@@ -1,15 +1,34 @@
 
-<p>Criptomoneda Princial
-    <app-input (childEvent)="handleChildEvent($event)"></app-input>
-    <app-button (childEvent)="handleChildEvent($event)"></app-button>
-</p>
 
-<p>Criptomoneda Comparada
-    <app-input inputValue="inputValue"></app-input>
-  
-    <app-button></app-button>
-</p>
+
+
+
+
+
+
+
+
+
+
+<div class="crypto-boxboss-saved">
+  <div class="crypto-box-saved">
+    <p>
+      <app-input (childEvent)="handleChildEventInputPr($event)"></app-input>
+    </p>
+    <p>
+      <app-input (childEvent)="handleChildEventInputCom($event)"></app-input>
+    </p>
+    <p>
+      <app-button (childEvent)="handleChildEvent()"></app-button>
+    </p>
+  </div>
+  <div *ngFor="let item of listCrypto" class="crypto-item-saved">
+    <p class="crypto-symbol-saved">{{item.symbol}}</p>
+    <p class="crypto-price-saved">{{item.price}}</p>
+  </div>
+</div>
+<hr>
 <div *ngFor="let item of cryptoData" class="crypto-item">
-    <p class="crypto-symbol">Símbolo: {{ item.symbol }}</p>
-    <p class="crypto-price">Precio: {{ item.price }}</p>
+  <p class="crypto-symbol">Símbolo: {{ item.symbol }}</p>
+  <p class="crypto-price">Precio: {{ item.price }}</p>
 </div>
