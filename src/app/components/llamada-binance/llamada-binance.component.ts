@@ -11,6 +11,7 @@ import { CryptoPriceService } from '../../crypto-price.service';
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
   listCrypto: any[] = [];
+  listCryptos: object = {'Total': 0,'crypto': []};
   nombreRecuperado: string = '';
   constructor(private cryptoPriceService: CryptoPriceService) {
 
@@ -18,10 +19,11 @@ export class LlamadaBinanceComponent implements OnInit {
   listEvent: any[] = [];
   eventInputPr: string = '';
   eventInputCom: string = '';
+  eventInputAmout: number = 0;
+  totalAmout: number = 0;
 
   ngOnInit(): void {
-    localStorage.getItem('criptomonedas')? this.listEvent = JSON.parse(localStorage.getItem('criptomonedas') ||''): '';
-    //this.listEvent = JSON.parse(localStorage.getItem('criptomonedas') || '') ;
+    localStorage.getItem('criptomonedas')? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') ||''): '';
     this.getCryptoPrices();
 
   }
@@ -29,33 +31,30 @@ export class LlamadaBinanceComponent implements OnInit {
   getCryptoPrices(): void {
     this.cryptoPriceService.getCryptoPrices().subscribe((data) => {
       this.cryptoData = data;
-      this.loopCryptocurrencyArray();
     });
   }
 
   loopCryptocurrencyArray() {
-    this.listCrypto = [];
     this.cryptoData.forEach((elemento, indice, arreglo) => {
-      this.listEvent.forEach((element) => {
-        if (elemento.symbol === (element.criptomonedapr + element.criptomonedacom)) {
-          this.listCrypto.push(elemento);
+        if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
+          this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
+          this.listCrypto.push({'price':elemento.price,'symbol': elemento.symbol, 'amount':this.eventInputAmout, 'dolares':(elemento.price * this.eventInputAmout)});
+          localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
+    
         }
-      });
     });
   }
   contentChecker(){
     this.cryptoData.forEach((elemento) => {
       if(elemento.symbol === this.eventInputPr + this.eventInputCom){
-        this.listEvent.push({ 'criptomonedapr': this.eventInputPr, 'criptomonedacom': this.eventInputCom });
-        localStorage.setItem('criptomonedas', JSON.stringify(this.listEvent));
         this.loopCryptocurrencyArray();
       }
     });
   }
   savedContentChecker(){
     let contador = true;
-    this.listEvent.forEach((element)=>{
-      if(this.eventInputPr + this.eventInputCom === element.criptomonedapr + element.criptomonedacom){
+    this.listCrypto.forEach((element)=>{
+      if(this.eventInputPr + this.eventInputCom === element.symbol){
         contador = false;
       }
     });
@@ -64,9 +63,12 @@ export class LlamadaBinanceComponent implements OnInit {
     }
   }
   handleChildEvent() {
-    if (this.eventInputPr && this.eventInputCom) {
+    if (this.eventInputPr && this.eventInputCom && this.eventInputAmout) {
       this.savedContentChecker()
     }
+  }
+  handleChildEventInputAmount(evt : any){
+    this.eventInputAmout = evt;
   }
   handleChildEventInputCom(evt: any) {
     this.eventInputCom = evt;

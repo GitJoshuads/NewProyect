@@ -9,7 +9,7 @@
 
 
 
-
+<h1>totalizador</h1>
 <div class="crypto-boxboss-saved">
   <div class="crypto-box-saved">
     <p>
@@ -19,12 +19,17 @@
       <app-input (childEvent)="handleChildEventInputCom($event)"></app-input>
     </p>
     <p>
+      <app-input (childEvent)="handleChildEventInputAmount($event)"></app-input>
+    </p>
+    <p>
       <app-button (childEvent)="handleChildEvent()"></app-button>
     </p>
   </div>
   <div *ngFor="let item of listCrypto" class="crypto-item-saved">
     <p class="crypto-symbol-saved">{{item.symbol}}</p>
-    <p class="crypto-price-saved">{{item.price}}</p>
+    <p>Price: <span class="crypto-price-saved">{{item.price}}</span></p>
+    <p>Amount: <span class="crypto-price-saved">{{item.amount}}</span></p>
+    <p>USDT: <span class="crypto-price-saved">{{item.dolares}}</span></p>
   </div>
 </div>
 <hr>
