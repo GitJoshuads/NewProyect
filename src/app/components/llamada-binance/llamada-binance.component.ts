@@ -10,8 +10,7 @@ import { CryptoPriceService } from '../../crypto-price.service';
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
-  listCrypto: any[] = [];
-  listCryptos: object = {'Total': 0,'crypto': []};
+  listCrypto: { total: number, crypto: any[] } = { total: 0, crypto: [] };
   nombreRecuperado: string = '';
   constructor(private cryptoPriceService: CryptoPriceService) {
 
@@ -23,9 +22,24 @@ export class LlamadaBinanceComponent implements OnInit {
   totalAmout: number = 0;
 
   ngOnInit(): void {
-    localStorage.getItem('criptomonedas')? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') ||''): '';
+    localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
     this.getCryptoPrices();
+    setInterval(()=> this.recharge(), 10000);
+  }
 
+  handleChildEvent() {
+    if (this.eventInputPr && this.eventInputCom && this.eventInputAmout) {
+      this.savedContentChecker()
+    }
+  }
+  handleChildEventInputAmount(evt: any) {
+    this.eventInputAmout = evt;
+  }
+  handleChildEventInputCom(evt: any) {
+    this.eventInputCom = evt;
+  }
+  handleChildEventInputPr(evt: any) {
+    this.eventInputPr = evt;
   }
 
   getCryptoPrices(): void {
@@ -34,46 +48,60 @@ export class LlamadaBinanceComponent implements OnInit {
     });
   }
 
-  loopCryptocurrencyArray() {
-    this.cryptoData.forEach((elemento, indice, arreglo) => {
-        if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
-          this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
-          this.listCrypto.push({'price':elemento.price,'symbol': elemento.symbol, 'amount':this.eventInputAmout, 'dolares':(elemento.price * this.eventInputAmout)});
-          localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
-    
+
+  recharge(){
+    this.getCryptoPrices();
+    this.totalAmout = 0; 
+    this.listCrypto['crypto'].forEach((element)=>{
+      this.cryptoData.forEach((elemen)=>{
+        if(element.symbol === elemen.symbol){
+          element.price = elemen.price;
+          element.dolares = elemen.price * element.amount;
+          this.totalAmout = this.totalAmout + (elemen.price * element.amount); 
         }
+      });
     });
   }
-  contentChecker(){
+  deleteCard(event: any){
+    let deleteCard = this.listCrypto['crypto'].filter((element)=>{
+      if(event !== element.symbol){
+        return element
+      }
+    });
+    this.listCrypto['crypto'] = deleteCard;
+    this.savedLocalStorage();
+  }
+
+  savedLocalStorage(){
+    localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
+  }
+
+  loopCryptocurrencyArray() {
+    this.cryptoData.forEach((elemento, indice, arreglo) => {
+      if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
+        this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
+        this.listCrypto['total'] = this.totalAmout;
+        this.listCrypto['crypto'].push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
+        this.savedLocalStorage();
+      }
+    });
+  }
+  contentChecker() {
     this.cryptoData.forEach((elemento) => {
-      if(elemento.symbol === this.eventInputPr + this.eventInputCom){
+      if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
         this.loopCryptocurrencyArray();
       }
     });
   }
-  savedContentChecker(){
+  savedContentChecker() {
     let contador = true;
-    this.listCrypto.forEach((element)=>{
-      if(this.eventInputPr + this.eventInputCom === element.symbol){
+    this.listCrypto['crypto'].forEach((element) => {
+      if (this.eventInputPr + this.eventInputCom === element.symbol) {
         contador = false;
       }
     });
-    if(contador){
+    if (contador) {
       this.contentChecker();
     }
-  }
-  handleChildEvent() {
-    if (this.eventInputPr && this.eventInputCom && this.eventInputAmout) {
-      this.savedContentChecker()
-    }
-  }
-  handleChildEventInputAmount(evt : any){
-    this.eventInputAmout = evt;
-  }
-  handleChildEventInputCom(evt: any) {
-    this.eventInputCom = evt;
-  }
-  handleChildEventInputPr(evt: any) {
-    this.eventInputPr = evt;
   }
 }
