@@ -23,13 +23,17 @@
       <app-button (childEvent)="handleChildEvent()"></app-button>
     </p>
   </div>
-  <div>
+  <div class="prueba">
+    <span>Symbol</span>
+    <span>Price</span>
+    <span>Amount</span>
+    <span>USDT</span>
     <div *ngFor="let item of listCrypto['crypto']" class="crypto-item-saved">
+      <span class="crypto-symbol-saved">{{item.symbol}}</span>
+      <span><span class="crypto-price-saved">{{item.price}}</span></span>
+      <span><span class="crypto-price-saved">{{item.amount}}</span></span>
+      <span><span class="crypto-price-saved">{{item.dolares}}</span></span>
       <span class="deleteCard" (click)="deleteCard(item.symbol)">borrar</span>
-      <p class="crypto-symbol-saved">{{item.symbol}}</p>
-      <p>Price: <span class="crypto-price-saved">{{item.price}}</span></p>
-      <p>Amount: <span class="crypto-price-saved">{{item.amount}}</span></p>
-      <p>USDT: <span class="crypto-price-saved">{{item.dolares}}</span></p>
     </div>
   </div>
 </div>
