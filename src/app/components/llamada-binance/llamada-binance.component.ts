@@ -11,11 +11,11 @@ import { CryptoPriceService } from '../../crypto-price.service';
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
-  listCrypto: { total: number, crypto: any[] } = { total: 0, crypto: [] };
+  listCrypto: any[] = [] ;
   listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','delete'];
-  dataSource = this.listCrypto['crypto'];
+  dataSource = this.listCrypto;
   constructor(private cryptoPriceService: CryptoPriceService) {
 
   }
@@ -27,7 +27,7 @@ export class LlamadaBinanceComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
-    this.dataSource = this.listCrypto['crypto'];
+    this.dataSource = this.listCrypto;
     this.getCryptoPrices();
     setInterval(()=> this.recharge(), 10000);
   }
@@ -55,10 +55,9 @@ export class LlamadaBinanceComponent implements OnInit {
 
 
   recharge(){
-    console.log(this.dataSource);
     this.getCryptoPrices();
     this.totalAmout = 0; 
-    this.listCrypto['crypto'].forEach((element)=>{
+    this.listCrypto.forEach((element)=>{
       this.cryptoData.forEach((elemen)=>{
         if(element.symbol === elemen.symbol){
           element.price = elemen.price;
@@ -67,16 +66,16 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       });
     });
-    this.dataSource = this.listCrypto['crypto'];
+    this.dataSource = this.listCrypto;
   }
   deleteCard(event: any){
-    let deleteCard = this.listCrypto['crypto'].filter((element)=>{
+    let deleteCard = this.listCrypto.filter((element)=>{
       if(event !== element.symbol){
         return element
       }
     });
-    this.listCrypto['crypto'] = deleteCard;
-    this.dataSource = this.listCrypto['crypto'];
+    this.listCrypto = deleteCard;
+    this.dataSource = this.listCrypto;
     this.savedLocalStorage();
   }
 
@@ -88,9 +87,9 @@ export class LlamadaBinanceComponent implements OnInit {
     this.cryptoData.forEach((elemento, indice, arreglo) => {
       if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
         this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
-        this.listCrypto['total'] = this.totalAmout;
-        this.listCrypto['crypto'].push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
-        this.dataSource = this.listCrypto['crypto'];
+  
+        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
+        this.dataSource = this.listCrypto;
         this.savedLocalStorage();
       }
     });
@@ -104,7 +103,7 @@ export class LlamadaBinanceComponent implements OnInit {
   }
   savedContentChecker() {
     let contador = true;
-    this.listCrypto['crypto'].forEach((element) => {
+    this.listCrypto.forEach((element) => {
       if (this.eventInputPr + this.eventInputCom === element.symbol) {
         contador = false;
       }
