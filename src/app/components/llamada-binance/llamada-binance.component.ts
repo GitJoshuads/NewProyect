@@ -6,12 +6,16 @@ import { CryptoPriceService } from '../../crypto-price.service';
 @Component({
   selector: 'app-llamada-binance',
   templateUrl: './llamada-binance.component.html',
-  styleUrls: ['./llamada-binance.component.scss']
+  styleUrls: ['./llamada-binance.component.scss'],
+
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
   listCrypto: { total: number, crypto: any[] } = { total: 0, crypto: [] };
+  listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','delete'];
+  dataSource = this.listCrypto['crypto'];
   constructor(private cryptoPriceService: CryptoPriceService) {
 
   }
@@ -23,6 +27,7 @@ export class LlamadaBinanceComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
+    this.dataSource = this.listCrypto['crypto'];
     this.getCryptoPrices();
     setInterval(()=> this.recharge(), 10000);
   }
@@ -50,6 +55,7 @@ export class LlamadaBinanceComponent implements OnInit {
 
 
   recharge(){
+    console.log(this.dataSource);
     this.getCryptoPrices();
     this.totalAmout = 0; 
     this.listCrypto['crypto'].forEach((element)=>{
@@ -61,6 +67,7 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       });
     });
+    this.dataSource = this.listCrypto['crypto'];
   }
   deleteCard(event: any){
     let deleteCard = this.listCrypto['crypto'].filter((element)=>{
@@ -69,6 +76,7 @@ export class LlamadaBinanceComponent implements OnInit {
       }
     });
     this.listCrypto['crypto'] = deleteCard;
+    this.dataSource = this.listCrypto['crypto'];
     this.savedLocalStorage();
   }
 
@@ -82,6 +90,7 @@ export class LlamadaBinanceComponent implements OnInit {
         this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
         this.listCrypto['total'] = this.totalAmout;
         this.listCrypto['crypto'].push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
+        this.dataSource = this.listCrypto['crypto'];
         this.savedLocalStorage();
       }
     });

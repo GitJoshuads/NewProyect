@@ -23,20 +23,50 @@
       <app-button (childEvent)="handleChildEvent()"></app-button>
     </p>
   </div>
-  <div class="prueba">
-    <span>Symbol</span>
-    <span>Price</span>
-    <span>Amount</span>
-    <span>USDT</span>
-    <div *ngFor="let item of listCrypto['crypto']" class="crypto-item-saved">
-      <span class="crypto-symbol-saved">{{item.symbol}}</span>
-      <span><span class="crypto-price-saved">{{item.price}}</span></span>
-      <span><span class="crypto-price-saved">{{item.amount}}</span></span>
-      <span><span class="crypto-price-saved">{{item.dolares}}</span></span>
-      <span class="deleteCard" (click)="deleteCard(item.symbol)">borrar</span>
-    </div>
-  </div>
-</div>
+<section class="example-container mat-elevation-z8" tabindex="0">
+  <table mat-table [dataSource]="listCrypto['crypto']">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Symbol ==> {{dataSource.length}}</th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Amount ==> Total: </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> USDT </th>
+      <td mat-cell *matCellDef="let element"> {{element.dolares}} </td>
+      hola
+    </ng-container>
+ <!-- Delete Column -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element"> 
+        <span class="deleteCard" (click)="deleteCard(element.symbol)">borrar</span>
+      </td>
+      
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</section>
+
+
+
 <hr>
 <div *ngFor="let item of cryptoData" class="crypto-item">
   <p class="crypto-symbol">Símbolo: {{ item.symbol }}</p>
