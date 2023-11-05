@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Editar {{inputdata.symbol}}!</h1>
+<div mat-dialog-content>
+    <app-input (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
+</div>
+<div mat-dialog-actions>
+  <button (click)="editpopup(inputdata)" mat-button>Editar</button>
+  <button (click)="closepopup()" mat-button mat-dialog-close cdkFocusInitial>Cancelar edición</button>
+</div>

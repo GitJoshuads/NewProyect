@@ -11,6 +11,9 @@ import { ButtonComponent } from './components/button/button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PopupComponent } from './components/popup/popup.component';
+import { PopupEditCryptoComponent } from './components/popup-edit-crypto/popup-edit-crypto.component';
 
 
 @NgModule({
@@ -18,7 +21,9 @@ import {MatTableModule} from '@angular/material/table';
     AppComponent,
     LlamadaBinanceComponent,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    PopupComponent,
+    PopupEditCryptoComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,8 @@ import {MatTableModule} from '@angular/material/table';
     FormsModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

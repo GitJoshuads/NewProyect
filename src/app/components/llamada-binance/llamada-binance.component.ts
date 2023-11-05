@@ -1,5 +1,8 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { CryptoPriceService } from '../../crypto-price.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from '../popup/popup.component';
+import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
 
 
 
@@ -16,7 +19,7 @@ export class LlamadaBinanceComponent implements OnInit {
   nombreRecuperado: string = '';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','delete'];
   dataSource = this.listCrypto;
-  constructor(private cryptoPriceService: CryptoPriceService) {
+  constructor(private cryptoPriceService: CryptoPriceService, public dialog: MatDialog) {
 
   }
   listEvent: any[] = [];
@@ -68,18 +71,9 @@ export class LlamadaBinanceComponent implements OnInit {
     });
     this.dataSource = this.listCrypto;
   }
-  deleteCard(event: any){
-    let deleteCard = this.listCrypto.filter((element)=>{
-      if(event !== element.symbol){
-        return element
-      }
-    });
-    this.listCrypto = deleteCard;
-    this.dataSource = this.listCrypto;
-    this.savedLocalStorage();
-  }
 
   savedLocalStorage(){
+    this.dataSource = this.listCrypto;
     localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
   }
 
@@ -89,11 +83,12 @@ export class LlamadaBinanceComponent implements OnInit {
         this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
   
         this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
-        this.dataSource = this.listCrypto;
+        //this.dataSource = this.listCrypto;
         this.savedLocalStorage();
       }
     });
   }
+  
   contentChecker() {
     this.cryptoData.forEach((elemento) => {
       if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
@@ -101,7 +96,8 @@ export class LlamadaBinanceComponent implements OnInit {
       }
     });
   }
-  savedContentChecker() {
+
+  savedContentChecker(): void {
     let contador = true;
     this.listCrypto.forEach((element) => {
       if (this.eventInputPr + this.eventInputCom === element.symbol) {
@@ -112,4 +108,56 @@ export class LlamadaBinanceComponent implements OnInit {
       this.contentChecker();
     }
   }
+  editAmountCrypto(item:any){
+    this.listCrypto.forEach(list=>{
+      if(list.symbol === item.dataCrypto.symbol){
+        list.amount = item.edit;
+      }
+    });
+    this.savedLocalStorage();
+  }
+
+  deleteCard(event: any){
+    let deleteCard = this.listCrypto.filter((element)=>{
+      if(event !== element.symbol){
+        return element
+      }
+    });
+    this.listCrypto = deleteCard;
+    //this.dataSource = this.listCrypto;
+    this.savedLocalStorage();
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, symbol: string): void {
+    let _popup = this.dialog.open(PopupComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data:{
+        title: symbol,
+      }
+    });
+    _popup.afterClosed().subscribe(item => {
+      if(item !== false){
+        this.deleteCard(item);
+      }
+    })
+  }
+
+  openDialogEdit(dataCrypto: string){
+    let _popup = this.dialog.open(PopupEditCryptoComponent, {
+      width: '500px',
+      height:'500px',
+      data:{
+        dataCrypto: dataCrypto,
+      }
+    });
+    _popup.afterClosed().subscribe(item => {
+       if(item !== false && item.edit){
+        this.editAmountCrypto(item);
+      } 
+      
+    })
+  }
 }
+

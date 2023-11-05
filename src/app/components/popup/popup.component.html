@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>A la mierda {{inputdata.title}}!</h1>
+<div mat-dialog-content>
+  ¿Quieres eliminar esta puta criptomoneda?
+</div>
+<div mat-dialog-actions>
+  <button (click)="deletepopup(inputdata.title)" mat-button mat-dialog-close>Eliminar</button>
+  <button (click)="closepopup()" mat-button mat-dialog-close cdkFocusInitial>Cancelar exterminación</button>
+</div>
