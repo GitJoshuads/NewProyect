@@ -82,7 +82,7 @@ export class LlamadaBinanceComponent implements OnInit {
       if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
         this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
   
-        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout) });
+        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount:[{location:'biance', amount:8524},{location:'asdasdasf', amount:66624}] });
         //this.dataSource = this.listCrypto;
         this.savedLocalStorage();
       }
@@ -153,7 +153,7 @@ export class LlamadaBinanceComponent implements OnInit {
       }
     });
     _popup.afterClosed().subscribe(item => {
-       if(item !== false && item.edit){
+       if(item !== false && item && item.edit){
         this.editAmountCrypto(item);
       } 
       
