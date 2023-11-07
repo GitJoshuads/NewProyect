@@ -1,8 +1,4 @@
-import { Component, Input } from '@angular/core';
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -13,16 +9,15 @@ interface Food {
 
 export class SelectComponent {
   @Input() dataPopupEditCrypto:any;
+  @Output() childEvent = new EventEmitter<string>();
   constructor(){}
   selectedValue:any;
-  selectedCar:any;
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
+  onInputChange(){
+   this.childEvent.emit(this.selectedValue);
+  }
   ngOnInit():void{
-    console.log(this.dataPopupEditCrypto + "prueba");
+    console.log(this.dataPopupEditCrypto);
+    this.selectedValue = this.dataPopupEditCrypto['dataCrypto']['dataAmount'][0];
   }
 }

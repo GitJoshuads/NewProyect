@@ -16,6 +16,7 @@ import { PopupComponent } from './components/popup/popup.component';
 import { PopupEditCryptoComponent } from './components/popup-edit-crypto/popup-edit-crypto.component';
 import {MatSelectModule} from '@angular/material/select';
 import { SelectComponent } from './components/select/select.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -38,7 +39,8 @@ import { SelectComponent } from './components/select/select.component';
     MatProgressBarModule,
     MatTableModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

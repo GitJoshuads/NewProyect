@@ -41,7 +41,7 @@ export class LlamadaBinanceComponent implements OnInit {
     }
   }
   handleChildEventInputAmount(evt: any) {
-    this.eventInputAmout = evt;
+    this.eventInputAmout = parseInt(evt);
   }
   handleChildEventInputCom(evt: any) {
     this.eventInputCom = evt;
@@ -62,7 +62,12 @@ export class LlamadaBinanceComponent implements OnInit {
     this.totalAmout = 0; 
     this.listCrypto.forEach((element)=>{
       this.cryptoData.forEach((elemen)=>{
+        let amountC= 0;
         if(element.symbol === elemen.symbol){
+          element['dataAmount'].forEach((total:any)=>{
+            amountC = total.amount + amountC;
+          });
+          element.amount = amountC;
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
           this.totalAmout = this.totalAmout + (elemen.price * element.amount); 
@@ -82,7 +87,7 @@ export class LlamadaBinanceComponent implements OnInit {
       if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
         this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
   
-        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount:[{location:'biance', amount:8524},{location:'asdasdasf', amount:66624}] });
+        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount:[{location:'OTRO', amount: this.eventInputAmout}] });
         //this.dataSource = this.listCrypto;
         this.savedLocalStorage();
       }
@@ -112,6 +117,13 @@ export class LlamadaBinanceComponent implements OnInit {
     this.listCrypto.forEach(list=>{
       if(list.symbol === item.dataCrypto.symbol){
         list.amount = item.edit;
+        if(list && list.dataAmount){
+        list['dataAmount'].forEach((locationD:any)=>{
+          if(locationD.location === item.dataEdit.symbol.location){
+            locationD.amount = item.dataEdit.edit;
+          }
+        });
+      }
       }
     });
     this.savedLocalStorage();
@@ -143,21 +155,36 @@ export class LlamadaBinanceComponent implements OnInit {
       }
     })
   }
+  createNewLocation(item:any){
+    this.listCrypto.forEach(list=>{
+      if(list.symbol === item.symbol){
+        if(list && list.dataAmount){
+        list['dataAmount'].push({location: item.newLocation, amount: item.newAmount})
+      }
+      }
+    });
+    this.savedLocalStorage();
+  }
 
   openDialogEdit(dataCrypto: string){
     let _popup = this.dialog.open(PopupEditCryptoComponent, {
-      width: '500px',
-      height:'500px',
+      width: '600px',
+      height:'300px',
       data:{
         dataCrypto: dataCrypto,
       }
     });
     _popup.afterClosed().subscribe(item => {
-       if(item !== false && item && item.edit){
+       if(item !== false && item && item.dataEdit){
         this.editAmountCrypto(item);
       } 
       
     })
+    _popup.componentInstance.childEvent.subscribe((data)=>{
+      this.createNewLocation(data);
+    });
+
+  
   }
 }
 

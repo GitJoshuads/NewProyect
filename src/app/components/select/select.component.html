@@ -1,8 +1,8 @@
 <mat-form-field>
   <mat-label>Location</mat-label>
-  <mat-select [(ngModel)]="selectedValue" name="food">
-    <mat-option *ngFor="let food of dataPopupEditCrypto['dataCrypto']['dataAmount']" [value]="food.location">
-      {{food.location}}
+  <mat-select [(ngModel)]="selectedValue" (ngModelChange)="onInputChange()">
+    <mat-option *ngFor="let item of dataPopupEditCrypto['dataCrypto']['dataAmount']" [value]="item">
+      {{item.location}}
     </mat-option>
   </mat-select>
 </mat-form-field>
