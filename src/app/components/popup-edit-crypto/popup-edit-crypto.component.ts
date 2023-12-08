@@ -16,9 +16,12 @@ export class PopupEditCryptoComponent implements OnInit {
   eventSelectLocation: any='';
   eventInputAmountNew: any;
   eventInputLocationNew: any;
+  selectedValue:any = false;
+  prueba: any[]=[];
 
   ngOnInit(): void {
     this.inputdata = this.data.dataCrypto;
+    this.prueba = this.inputdata['dataAmount'];
     this.eventSelectLocation = this.inputdata['dataAmount'][0];
   }
   handleChildEventInputAmountEdit(evt: any) {
@@ -48,5 +51,8 @@ export class PopupEditCryptoComponent implements OnInit {
     if(this.eventInputLocationNew && this.eventInputAmountNew){
       this.childEvent.emit({symbol: evt, newLocation: this.eventInputLocationNew, newAmount: this.eventInputAmountNew});
     }
+  }
+  checkEditTotal(value:string){
+    this.selectedValue = value === 'true'? true : false;
   }
 }

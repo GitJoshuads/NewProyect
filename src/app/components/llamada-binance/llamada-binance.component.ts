@@ -168,8 +168,8 @@ export class LlamadaBinanceComponent implements OnInit {
 
   openDialogEdit(dataCrypto: string){
     let _popup = this.dialog.open(PopupEditCryptoComponent, {
-      width: '600px',
-      height:'300px',
+      width: '700px',
+      height:'350px',
       data:{
         dataCrypto: dataCrypto,
       }

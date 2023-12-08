@@ -1,24 +1,37 @@
-<h1 mat-dialog-title>Editar {{inputdata.symbol}}!</h1>
 <div class="crypto-box-saved">
-<div mat-dialog-content>
-    <p>
-        <app-select [dataPopupEditCrypto]="dataPopupEditCrypto" (childEvent)="handleChildEventSelectLocation($event)"></app-select>
-        <!--<button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button>-->
-    </p>
-    <p>
-        Amount:{{eventSelectLocation.amount}}
-    </p>
-    <p>
-        <app-input (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
-    </p>
-</div>
+    <div mat-dialog-content>
+        <h1 mat-dialog-title>Editar {{inputdata.symbol}}!</h1>
+        <p>
+            <app-select [dataPopupEditCrypto]="dataPopupEditCrypto"
+                (childEvent)="handleChildEventSelectLocation($event)"></app-select>
+            <!--<button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button>-->
+        </p>
+        <p>
+            Amount:{{eventSelectLocation.amount}}
+        </p>
+        <p>
+            <app-input (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
+        </p>
+    </div>
 
-<div class="create-new-location">
-    <p><app-input (childEvent)="handleChildEventInputLocationNew($event)"></app-input></p>
-    <p><app-input (childEvent)="handleChildEventInputAmountNew($event)"></app-input></p>
-    <p><button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button></p>
-</div>
-
+    <div class="create-new-location">
+        <div>
+            <mat-button-toggle-group [(ngModel)]="selectedValue" (change)="checkEditTotal(selectedValue)"
+                appearance="legacy" name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="true">Total</mat-button-toggle>
+                <mat-button-toggle value="false">Editar</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <div *ngIf="selectedValue">
+            <p><app-input (childEvent)="handleChildEventInputLocationNew($event)"></app-input></p>
+            <p><app-input (childEvent)="handleChildEventInputAmountNew($event)"></app-input></p>
+            <p><button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button></p>
+        </div>
+        <div *ngIf="!selectedValue">
+           !!{{prueba[0].location}}!!
+            <app-donut-chart ></app-donut-chart>
+        </div>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button (click)="editpopup(inputdata)" mat-button>Editar</button>

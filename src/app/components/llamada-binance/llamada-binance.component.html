@@ -1,18 +1,23 @@
 <h1>Totalizador {{totalAmout}}</h1>
 <div class="crypto-boxboss-saved">
-  <div class="crypto-box-saved">
-    <p>
-      <app-input (childEvent)="handleChildEventInputPr($event)"></app-input>
-    </p>
-    <p>
-      <app-input (childEvent)="handleChildEventInputCom($event)"></app-input>
-    </p>
-    <p>
-      <app-input (childEvent)="handleChildEventInputAmount($event)"></app-input>
-    </p>
-    <p>
-      <app-button (childEvent)="handleChildEvent()"></app-button>
-    </p>
+  <div class="donutChart">
+    <div class="crypto-box-saved">
+      <p>
+        <app-input (childEvent)="handleChildEventInputPr($event)"></app-input>
+      </p>
+      <p>
+        <app-input (childEvent)="handleChildEventInputCom($event)"></app-input>
+      </p>
+      <p>
+        <app-input (childEvent)="handleChildEventInputAmount($event)"></app-input>
+      </p>
+      <p>
+        <app-button (childEvent)="handleChildEvent()"></app-button>
+      </p>
+    </div>
+    <div>
+      <app-donut-chart [listCrypto]="listCrypto"></app-donut-chart>
+    </div>
   </div>
   <section class="example-container mat-elevation-z8" tabindex="0">
     <table mat-table [dataSource]="listCrypto">
@@ -39,14 +44,14 @@
       <ng-container matColumnDef="symbol">
         <th mat-header-cell *matHeaderCellDef> USDT ==> Total: {{totalAmout}} USDT</th>
         <td mat-cell *matCellDef="let element"> {{element.dolares}} </td>
-        hola
       </ng-container>
       <!-- Delete Column -->
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Opciones </th>
         <td mat-cell *matCellDef="let element">
           <button class="deleteCard" mat-raised-button (click)="openDialogEdit(element)">Editar</button>
-          <button class="deleteCard" mat-raised-button (click)="openDialog('0ms', '0ms', element.symbol)">Eliminar</button>
+          <button class="deleteCard" mat-raised-button
+            (click)="openDialog('0ms', '0ms', element.symbol)">Eliminar</button>
         </td>
       </ng-container>
 

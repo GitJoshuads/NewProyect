@@ -17,6 +17,12 @@ import { PopupEditCryptoComponent } from './components/popup-edit-crypto/popup-e
 import {MatSelectModule} from '@angular/material/select';
 import { SelectComponent } from './components/select/select.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
+
 
 
 
@@ -28,7 +34,8 @@ import {MatButtonModule} from '@angular/material/button';
     ButtonComponent,
     PopupComponent,
     PopupEditCryptoComponent,
-    SelectComponent
+    SelectComponent,
+    DonutChartComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatButtonToggleModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
