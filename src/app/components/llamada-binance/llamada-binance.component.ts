@@ -19,6 +19,7 @@ export class LlamadaBinanceComponent implements OnInit {
   nombreRecuperado: string = '';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','delete'];
   dataSource = this.listCrypto;
+  single: any[]= [];
   constructor(private cryptoPriceService: CryptoPriceService, public dialog: MatDialog) {
 
   }
@@ -33,6 +34,10 @@ export class LlamadaBinanceComponent implements OnInit {
   ngOnInit(): void {
     localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
     this.dataSource = this.listCrypto;
+    this.single = [];
+    this.listCrypto.forEach((item:any)=>{
+      this.single.push({name:item.symbol, value:item.dolares});
+    });
     this.getCryptoPrices();
     setInterval(()=> this.recharge(), 10000);
   }
@@ -75,6 +80,10 @@ export class LlamadaBinanceComponent implements OnInit {
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
           this.totalAmout = this.totalAmout + (elemen.price * element.amount); 
+          this.single = [];
+          this.listCrypto.forEach((item:any)=>{
+            this.single.push({name:item.symbol, value:item.dolares});
+          });
         }
       });
     });
