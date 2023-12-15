@@ -1,4 +1,5 @@
-<h1>Totalizador {{totalAmout}}</h1>
+<h1>USDT: {{totalAmout}}</h1>
+<h1>BTC: {{totalBTC}}</h1>
 <div class="crypto-boxboss-saved">
   <div class="donutChart">
     <div class="crypto-box-saved">
@@ -16,7 +17,7 @@
       </p>
     </div>
     <div>
-      <app-donut-chart [listCrypto]="listCrypto"></app-donut-chart>
+      <app-donut-chart [listCrypto]="dataSource"></app-donut-chart>
     </div>
   </div>
   <section class="example-container mat-elevation-z8" tabindex="0">

@@ -27,6 +27,8 @@ export class LlamadaBinanceComponent implements OnInit {
   eventInputCom: string = '';
   eventInputAmout: number = 0;
   totalAmout: number = 0;
+  totalBTC: number = 0;
+  priceBTC: number = 0;
 
   ngOnInit(): void {
     localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
@@ -56,12 +58,14 @@ export class LlamadaBinanceComponent implements OnInit {
     });
   }
 
-
+//Actualizador de precios 
   recharge(){
     this.getCryptoPrices();
     this.totalAmout = 0; 
+    //console.log('listCryptoAntesEdit' + JSON.stringify(this.listCrypto));
     this.listCrypto.forEach((element)=>{
       this.cryptoData.forEach((elemen)=>{
+        this.priceBTC = elemen.symbol === 'BTCUSDT'? elemen.price : this.priceBTC;
         let amountC= 0;
         if(element.symbol === elemen.symbol){
           element['dataAmount'].forEach((total:any)=>{
@@ -74,7 +78,11 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       });
     });
+    //console.log('listCryptoEdit' + JSON.stringify(this.listCrypto));
     this.dataSource = this.listCrypto;
+    //this.dataSource.push(...this.listCrypto);
+    this.totalBTC = (this.totalAmout * 1) / this.priceBTC; 
+    this.totalAmout = parseFloat((this.totalAmout).toFixed(2));
   }
 
   savedLocalStorage(){
@@ -85,7 +93,7 @@ export class LlamadaBinanceComponent implements OnInit {
   loopCryptocurrencyArray() {
     this.cryptoData.forEach((elemento, indice, arreglo) => {
       if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
-        this.totalAmout = (elemento.price * this.eventInputAmout) + this.totalAmout;
+        this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
   
         this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount:[{location:'OTRO', amount: this.eventInputAmout}] });
         //this.dataSource = this.listCrypto;
