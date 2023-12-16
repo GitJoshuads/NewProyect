@@ -16,12 +16,12 @@ export class PopupEditCryptoComponent implements OnInit {
   eventSelectLocation: any='';
   eventInputAmountNew: any;
   eventInputLocationNew: any;
-  selectedValue:any = false;
+  selectedValue:any = true;
   prueba: any[]=[];
 
   ngOnInit(): void {
     this.inputdata = this.data.dataCrypto;
-    this.prueba = this.inputdata['dataAmount'];
+    this.prueba = this.inputdata['dataAmount'].sort((a:any,b:any)=> b.value - a.value);
     this.eventSelectLocation = this.inputdata['dataAmount'][0];
   }
   handleChildEventInputAmountEdit(evt: any) {
@@ -46,6 +46,10 @@ export class PopupEditCryptoComponent implements OnInit {
     if (this.eventInputAmountEdit) {
       this.ref.close({ dataCrypto: data, dataEdit: {edit: this.eventInputAmountEdit, symbol: this.eventSelectLocation }});
     }
+  }
+  deleteLocationpopup(data: string) {
+    this.ref.close({ dataCrypto: data, dataEdit: {edit: false, symbol: this.eventSelectLocation }});
+    
   }
   createNewLocation(evt:any){
     if(this.eventInputLocationNew && this.eventInputAmountNew){

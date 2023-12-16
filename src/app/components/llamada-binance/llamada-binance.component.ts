@@ -14,12 +14,12 @@ import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
-  listCrypto: any[] = [] ;
+  listCrypto: any[] = [];
   listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','delete'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'delete'];
   dataSource = this.listCrypto;
-  single: any[]= [];
+  single: any[] = [];
   constructor(private cryptoPriceService: CryptoPriceService, public dialog: MatDialog) {
 
   }
@@ -35,11 +35,13 @@ export class LlamadaBinanceComponent implements OnInit {
     localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
     this.dataSource = this.listCrypto;
     this.single = [];
-    this.listCrypto.forEach((item:any)=>{
-      this.single.push({name:item.symbol, value:item.dolares});
+    this.listCrypto.forEach((item: any) => {
+      this.single.push({ name: item.symbol, value: item.dolares });
     });
+    this.sortArrayGraph(this.listCrypto);
+    this.sortArrayGraph(this.single);
     this.getCryptoPrices();
-    setInterval(()=> this.recharge(), 10000);
+    setInterval(() => this.recharge(), 10000);
   }
 
   handleChildEvent() {
@@ -63,38 +65,44 @@ export class LlamadaBinanceComponent implements OnInit {
     });
   }
 
-//Actualizador de precios 
-  recharge(){
+  //Actualizador de precios 
+  recharge() {
     this.getCryptoPrices();
-    this.totalAmout = 0; 
+    this.totalAmout = 0;
     //console.log('listCryptoAntesEdit' + JSON.stringify(this.listCrypto));
-    this.listCrypto.forEach((element)=>{
-      this.cryptoData.forEach((elemen)=>{
-        this.priceBTC = elemen.symbol === 'BTCUSDT'? elemen.price : this.priceBTC;
-        let amountC= 0;
-        if(element.symbol === elemen.symbol){
-          element['dataAmount'].forEach((total:any)=>{
-            amountC = total.amount + amountC;
+    this.listCrypto.forEach((element) => {
+      this.cryptoData.forEach((elemen) => {
+        this.priceBTC = elemen.symbol === 'BTCUSDT' ? elemen.price : this.priceBTC;
+        let amountC = 0;
+        if (element.symbol === elemen.symbol) {
+          element['dataAmount'].forEach((total: any) => {
+            amountC = total.value + amountC;
           });
           element.amount = amountC;
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
-          this.totalAmout = this.totalAmout + (elemen.price * element.amount); 
+          this.totalAmout = this.totalAmout + (elemen.price * element.amount);
           this.single = [];
-          this.listCrypto.forEach((item:any)=>{
-            this.single.push({name:item.symbol, value:item.dolares});
+          this.listCrypto.forEach((item: any) => {
+            this.single.push({ name: item.symbol, value: item.dolares });
           });
+          this.sortArrayGraph(this.listCrypto);
+          this.sortArrayGraph(this.single);
         }
       });
     });
     //console.log('listCryptoEdit' + JSON.stringify(this.listCrypto));
     this.dataSource = this.listCrypto;
     //this.dataSource.push(...this.listCrypto);
-    this.totalBTC = (this.totalAmout * 1) / this.priceBTC; 
+    this.totalBTC = (this.totalAmout * 1) / this.priceBTC;
     this.totalAmout = parseFloat((this.totalAmout).toFixed(2));
   }
+  //Ordenar grafica
+  sortArrayGraph(data: any[]) {
+    data.sort((a: any, b: any) => (b.value || b.dolares) - (a.value || a.dolares));
+  }
 
-  savedLocalStorage(){
+  savedLocalStorage() {
     this.dataSource = this.listCrypto;
     localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
   }
@@ -103,14 +111,14 @@ export class LlamadaBinanceComponent implements OnInit {
     this.cryptoData.forEach((elemento, indice, arreglo) => {
       if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
         this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
-  
-        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount:[{location:'OTRO', amount: this.eventInputAmout}] });
+
+        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }] });
         //this.dataSource = this.listCrypto;
         this.savedLocalStorage();
       }
     });
   }
-  
+
   contentChecker() {
     this.cryptoData.forEach((elemento) => {
       if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
@@ -130,25 +138,39 @@ export class LlamadaBinanceComponent implements OnInit {
       this.contentChecker();
     }
   }
-  editAmountCrypto(item:any){
-    this.listCrypto.forEach(list=>{
-      if(list.symbol === item.dataCrypto.symbol){
-        list.amount = item.edit;
-        if(list && list.dataAmount){
-        list['dataAmount'].forEach((locationD:any)=>{
-          if(locationD.location === item.dataEdit.symbol.location){
-            locationD.amount = item.dataEdit.edit;
-          }
-        });
-      }
+  editAmountCrypto(item: any) {
+    this.listCrypto.forEach(list => {
+      if (list.symbol === item.dataCrypto.symbol) {
+        list.amount = 0;
+        if (list && list.dataAmount) {
+          list['dataAmount'].forEach((locationD: any) => {
+            if (locationD.name === item.dataEdit.symbol.name) {
+              locationD.value = item.dataEdit.edit;
+            }
+            list.amount = list.amount + locationD.value;
+          });
+        }
       }
     });
     this.savedLocalStorage();
   }
+  deleteLocationAmountCrypto(item: any) {
+    this.listCrypto.forEach(list => {
+      if (list.symbol === item.dataCrypto.symbol) {
+        if (list && list.dataAmount) {
+          list.amount = list.amount - item.dataEdit.symbol.value;
+          let index = list['dataAmount'].findIndex((objeto: any) => objeto.name === item.dataEdit.symbol.name);
+          list['dataAmount'].splice(index, 1);
+        }
+      }
+    });
 
-  deleteCard(event: any){
-    let deleteCard = this.listCrypto.filter((element)=>{
-      if(event !== element.symbol){
+    this.savedLocalStorage();
+  }
+
+  deleteCard(event: any) {
+    let deleteCard = this.listCrypto.filter((element) => {
+      if (event !== element.symbol) {
         return element
       }
     });
@@ -162,46 +184,49 @@ export class LlamadaBinanceComponent implements OnInit {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data:{
+      data: {
         title: symbol,
       }
     });
     _popup.afterClosed().subscribe(item => {
-      if(item !== false){
+      if (item !== false) {
         this.deleteCard(item);
       }
     })
   }
-  createNewLocation(item:any){
-    this.listCrypto.forEach(list=>{
-      if(list.symbol === item.symbol){
-        if(list && list.dataAmount){
-        list['dataAmount'].push({location: item.newLocation, amount: item.newAmount})
-      }
+  createNewLocation(item: any) {
+    this.listCrypto.forEach(list => {
+      if (list.symbol === item.symbol) {
+        if (list && list.dataAmount) {
+          list['dataAmount'].push({ name: item.newLocation, value: item.newAmount })
+        }
       }
     });
     this.savedLocalStorage();
   }
 
-  openDialogEdit(dataCrypto: string){
+  openDialogEdit(dataCrypto: string) {
     let _popup = this.dialog.open(PopupEditCryptoComponent, {
       width: '700px',
-      height:'350px',
-      data:{
+      height: '350px',
+      data: {
         dataCrypto: dataCrypto,
       }
     });
     _popup.afterClosed().subscribe(item => {
-       if(item !== false && item && item.dataEdit){
+      if (item && item.dataEdit && item.dataEdit.edit) {
         this.editAmountCrypto(item);
-      } 
-      
+      }
+      if (item && item.dataEdit && item.dataEdit.edit === false) {
+        this.deleteLocationAmountCrypto(item);
+      }
+
     })
-    _popup.componentInstance.childEvent.subscribe((data)=>{
+    _popup.componentInstance.childEvent.subscribe((data) => {
       this.createNewLocation(data);
     });
 
-  
+
   }
 }
 

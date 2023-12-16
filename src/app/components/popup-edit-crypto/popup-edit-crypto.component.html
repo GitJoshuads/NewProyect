@@ -7,7 +7,7 @@
             <!--<button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button>-->
         </p>
         <p>
-            Amount:{{eventSelectLocation.amount}}
+            Amount:{{eventSelectLocation.value}}
         </p>
         <p>
             <app-input (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
@@ -22,18 +22,18 @@
                 <mat-button-toggle value="false">Editar</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <div *ngIf="selectedValue">
+        <div *ngIf="!selectedValue">
             <p><app-input (childEvent)="handleChildEventInputLocationNew($event)"></app-input></p>
             <p><app-input (childEvent)="handleChildEventInputAmountNew($event)"></app-input></p>
             <p><button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button></p>
         </div>
-        <div *ngIf="!selectedValue">
-           !!{{prueba[0].location}}!!
-            <app-donut-chart ></app-donut-chart>
+        <div *ngIf="selectedValue">
+            <app-donut-chart [listCrypto]="prueba"></app-donut-chart>
         </div>
     </div>
 </div>
 <div mat-dialog-actions>
     <button (click)="editpopup(inputdata)" mat-button>Editar</button>
+    <button (click)="deleteLocationpopup(inputdata)" mat-button mat-dialog-close>Eliminar</button>
     <button (click)="closepopup()" mat-button mat-dialog-close>Cancelar edición</button>
 </div>
