@@ -1,0 +1,12 @@
+{
+    "/api": {
+      "target": "https://sandbox-api.coinmarketcap.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  
+  

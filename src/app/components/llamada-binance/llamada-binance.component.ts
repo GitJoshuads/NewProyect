@@ -1,5 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { CryptoPriceService } from '../../crypto-price.service';
+import { CryptoPriceServiceCoinmarketcap } from '../../crypto-price-coinmarketcap.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
@@ -14,13 +15,14 @@ import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
+  cryptoDataCoinmarketcap: any[] = [];
   listCrypto: any[] = [];
   listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'delete'];
   dataSource = this.listCrypto;
   single: any[] = [];
-  constructor(private cryptoPriceService: CryptoPriceService, public dialog: MatDialog) {
+  constructor(private cryptoPriceService: CryptoPriceService, private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap, public dialog: MatDialog) {
 
   }
   listEvent: any[] = [];
@@ -41,6 +43,7 @@ export class LlamadaBinanceComponent implements OnInit {
     this.sortArrayGraph(this.listCrypto);
     this.sortArrayGraph(this.single);
     this.getCryptoPrices();
+    this.getCryptoPricesCoinmarketcap();
     setInterval(() => this.recharge(), 10000);
   }
 
@@ -62,6 +65,11 @@ export class LlamadaBinanceComponent implements OnInit {
   getCryptoPrices(): void {
     this.cryptoPriceService.getCryptoPrices().subscribe((data) => {
       this.cryptoData = data;
+    });
+  }
+  getCryptoPricesCoinmarketcap(): void {
+    this.cryptoPriceServiceCoinmarketcap.getCryptoData().subscribe((data) => {
+      this.cryptoDataCoinmarketcap = data;
     });
   }
 
