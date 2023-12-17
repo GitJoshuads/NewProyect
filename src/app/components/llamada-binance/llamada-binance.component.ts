@@ -1,17 +1,14 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CryptoPriceService } from '../../crypto-price.service';
 import { CryptoPriceServiceCoinmarketcap } from '../../crypto-price-coinmarketcap.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
 
-
-
 @Component({
   selector: 'app-llamada-binance',
   templateUrl: './llamada-binance.component.html',
   styleUrls: ['./llamada-binance.component.scss'],
-
 })
 export class LlamadaBinanceComponent implements OnInit {
   cryptoData: any[] = [];
@@ -19,12 +16,16 @@ export class LlamadaBinanceComponent implements OnInit {
   listCrypto: any[] = [];
   listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'delete'];
+  displayedColumns: string[] = ['position', 'name', 'price1', 'price24', 'price7', 'weight', 'symbol', 'delete'];
   dataSource = this.listCrypto;
   single: any[] = [];
-  constructor(private cryptoPriceService: CryptoPriceService, private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap, public dialog: MatDialog) {
 
-  }
+  constructor(
+    private cryptoPriceService: CryptoPriceService,
+    private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap,
+    public dialog: MatDialog
+  ) {}
+
   listEvent: any[] = [];
   eventInputPr: string = '';
   eventInputCom: string = '';
@@ -32,102 +33,125 @@ export class LlamadaBinanceComponent implements OnInit {
   totalAmout: number = 0;
   totalBTC: number = 0;
   priceBTC: number = 0;
+  cryptoNameMap: { [key: string]: string } = {};
 
-  ngOnInit(): void {
-    localStorage.getItem('criptomonedas') ? this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || '') : '';
-    this.dataSource = this.listCrypto;
-    this.single = [];
-    this.listCrypto.forEach((item: any) => {
-      this.single.push({ name: item.symbol, value: item.dolares });
-    });
-    this.sortArrayGraph(this.listCrypto);
-    this.sortArrayGraph(this.single);
-    this.getCryptoPrices();
-    this.getCryptoPricesCoinmarketcap();
-    setInterval(() => this.recharge(), 10000);
-  }
-
-  handleChildEvent() {
-    if (this.eventInputPr && this.eventInputCom && this.eventInputAmout) {
-      this.savedContentChecker()
-    }
-  }
-  handleChildEventInputAmount(evt: any) {
-    this.eventInputAmout = parseInt(evt);
-  }
-  handleChildEventInputCom(evt: any) {
-    this.eventInputCom = evt;
-  }
   handleChildEventInputPr(evt: any) {
     this.eventInputPr = evt;
   }
 
-  getCryptoPrices(): void {
-    this.cryptoPriceService.getCryptoPrices().subscribe((data) => {
-      this.cryptoData = data;
-    });
-  }
-  getCryptoPricesCoinmarketcap(): void {
-    this.cryptoPriceServiceCoinmarketcap.getCryptoData().subscribe((data) => {
-      this.cryptoDataCoinmarketcap = data;
-    });
+  handleChildEventInputCom(evt: any) {
+    this.eventInputCom = evt;
   }
 
-  //Actualizador de precios 
-  recharge() {
-    this.getCryptoPrices();
+  handleChildEventInputAmount(evt: any) {
+    this.eventInputAmout = parseInt(evt);
+  }
+
+  handleChildEvent() {
+    if (this.eventInputPr && this.eventInputCom && this.eventInputAmout) {
+      this.savedContentChecker();
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    localStorage.getItem('criptomonedas')
+      ? (this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || ''))
+      : '';
+    await this.recharge();
+    await this.rechargeCoingecko();
+    this.dataSource = this.listCrypto;
+    this.single = this.listCrypto.map((item: any) => ({ name: item.symbol, value: item.dolares }));
+    this.sortArrayGraph(this.listCrypto);
+    this.sortArrayGraph(this.single);
+    setInterval(() => this.recharge(), 10000);
+    //setInterval(() => this.rechargeCoingecko(), 30000);
+  }
+
+  async recharge(): Promise<void> {
+    await this.getCryptoPrices();
     this.totalAmout = 0;
-    //console.log('listCryptoAntesEdit' + JSON.stringify(this.listCrypto));
     this.listCrypto.forEach((element) => {
       this.cryptoData.forEach((elemen) => {
         this.priceBTC = elemen.symbol === 'BTCUSDT' ? elemen.price : this.priceBTC;
-        let amountC = 0;
+        let amountC = element.dataAmount.reduce((total: number, data: any) => total + data.value, 0);
         if (element.symbol === elemen.symbol) {
-          element['dataAmount'].forEach((total: any) => {
-            amountC = total.value + amountC;
-          });
           element.amount = amountC;
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
-          this.totalAmout = this.totalAmout + (elemen.price * element.amount);
-          this.single = [];
-          this.listCrypto.forEach((item: any) => {
-            this.single.push({ name: item.symbol, value: item.dolares });
-          });
-          this.sortArrayGraph(this.listCrypto);
-          this.sortArrayGraph(this.single);
+          this.totalAmout += elemen.price * element.amount;
+          this.single = this.listCrypto.map((item: any) => ({ name: item.symbol, value: item.dolares }));
         }
       });
     });
-    //console.log('listCryptoEdit' + JSON.stringify(this.listCrypto));
+    this.sortArrayGraph(this.listCrypto);
+    this.sortArrayGraph(this.single);
     this.dataSource = this.listCrypto;
-    //this.dataSource.push(...this.listCrypto);
     this.totalBTC = (this.totalAmout * 1) / this.priceBTC;
-    this.totalAmout = parseFloat((this.totalAmout).toFixed(2));
+    this.totalAmout = parseFloat(this.totalAmout.toFixed(2));
   }
-  //Ordenar grafica
-  sortArrayGraph(data: any[]) {
+
+  async rechargeCoingecko(): Promise<void> {
+    await this.getCryptoPricesCoinmarketcap();
+    this.getCryptoPricesCoingecko();
+  }
+
+  async getCryptoPrices(): Promise<void> {
+    try {
+      const data:any = await this.cryptoPriceService.getCryptoPrices().toPromise();
+      this.cryptoData = data;
+    } catch (error:any) {
+      console.error('Error al obtener datos de criptomonedas', error.message);
+    }
+  }
+
+  async getCryptoPricesCoinmarketcap(): Promise<void> {
+    try {
+      const data = await this.cryptoPriceServiceCoinmarketcap.getCryptoData().toPromise();
+      this.cryptoDataCoinmarketcap = data;
+    } catch (error:any) {
+      console.error('Error al obtener datos de Coinmarketcap', error.message);
+    }
+  }
+
+  async getCryptoPricesCoingecko(): Promise<void> {
+    this.listCrypto.forEach((element) => {
+      this.cryptoDataCoinmarketcap.forEach((elemento) => {
+        if (element.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
+          element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
+          element.price24h = elemento.price_change_percentage_24h_in_currency.toFixed(1);
+          element.price7d = elemento.price_change_percentage_7d_in_currency.toFixed(1);
+        }
+      });
+    });
+  }
+
+  sortArrayGraph(data: any[]): void {
     data.sort((a: any, b: any) => (b.value || b.dolares) - (a.value || a.dolares));
   }
 
-  savedLocalStorage() {
+  savedLocalStorage(): void {
     this.dataSource = this.listCrypto;
     localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
   }
 
-  loopCryptocurrencyArray() {
+  loopCryptocurrencyArray(): void {
     this.cryptoData.forEach((elemento, indice, arreglo) => {
-      if (elemento.symbol === (this.eventInputPr + this.eventInputCom)) {
+      if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
         this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
 
-        this.listCrypto.push({ 'price': elemento.price, 'symbol': elemento.symbol, 'amount': this.eventInputAmout, 'dolares': (elemento.price * this.eventInputAmout), dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }] });
-        //this.dataSource = this.listCrypto;
+        this.listCrypto.push({
+          'price': elemento.price,
+          'symbol': elemento.symbol,
+          'amount': this.eventInputAmout,
+          'dolares': (elemento.price * this.eventInputAmout),
+          dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
+        });
         this.savedLocalStorage();
       }
     });
   }
 
-  contentChecker() {
+  contentChecker(): void {
     this.cryptoData.forEach((elemento) => {
       if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
         this.loopCryptocurrencyArray();
@@ -146,7 +170,8 @@ export class LlamadaBinanceComponent implements OnInit {
       this.contentChecker();
     }
   }
-  editAmountCrypto(item: any) {
+
+  editAmountCrypto(item: any): void {
     this.listCrypto.forEach(list => {
       if (list.symbol === item.dataCrypto.symbol) {
         list.amount = 0;
@@ -155,18 +180,19 @@ export class LlamadaBinanceComponent implements OnInit {
             if (locationD.name === item.dataEdit.symbol.name) {
               locationD.value = item.dataEdit.edit;
             }
-            list.amount = list.amount + locationD.value;
+            list.amount += locationD.value;
           });
         }
       }
     });
     this.savedLocalStorage();
   }
-  deleteLocationAmountCrypto(item: any) {
+
+  deleteLocationAmountCrypto(item: any): void {
     this.listCrypto.forEach(list => {
       if (list.symbol === item.dataCrypto.symbol) {
         if (list && list.dataAmount) {
-          list.amount = list.amount - item.dataEdit.symbol.value;
+          list.amount -= item.dataEdit.symbol.value;
           let index = list['dataAmount'].findIndex((objeto: any) => objeto.name === item.dataEdit.symbol.name);
           list['dataAmount'].splice(index, 1);
         }
@@ -176,14 +202,8 @@ export class LlamadaBinanceComponent implements OnInit {
     this.savedLocalStorage();
   }
 
-  deleteCard(event: any) {
-    let deleteCard = this.listCrypto.filter((element) => {
-      if (event !== element.symbol) {
-        return element
-      }
-    });
-    this.listCrypto = deleteCard;
-    //this.dataSource = this.listCrypto;
+  deleteCard(event: any): void {
+    this.listCrypto = this.listCrypto.filter((element) => event !== element.symbol);
     this.savedLocalStorage();
   }
 
@@ -202,7 +222,8 @@ export class LlamadaBinanceComponent implements OnInit {
       }
     })
   }
-  createNewLocation(item: any) {
+
+  createNewLocation(item: any): void {
     this.listCrypto.forEach(list => {
       if (list.symbol === item.symbol) {
         if (list && list.dataAmount) {
@@ -213,7 +234,7 @@ export class LlamadaBinanceComponent implements OnInit {
     this.savedLocalStorage();
   }
 
-  openDialogEdit(dataCrypto: string) {
+  openDialogEdit(dataCrypto: string): void {
     let _popup = this.dialog.open(PopupEditCryptoComponent, {
       width: '700px',
       height: '350px',
@@ -233,8 +254,5 @@ export class LlamadaBinanceComponent implements OnInit {
     _popup.componentInstance.childEvent.subscribe((data) => {
       this.createNewLocation(data);
     });
-
-
   }
 }
-

@@ -6,21 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CryptoPriceServiceCoinmarketcap {
-  private apiUrl = '/api/v1/cryptocurrency/listings/latest';
-
-  private headers = new HttpHeaders({
-    'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': '85c8d00c-1f76-4c6f-b7dc-a7178caf1ec1',
-  });
-
   constructor(private http: HttpClient) {}
-
   getCryptoData(): Observable<any> {
-    const params = new HttpParams()
-      .set('start', '1')
-      .set('limit', '5000')
-      .set('convert', 'USD');
-
-    return this.http.get<any>(this.apiUrl, { headers: this.headers, params });
+    return this.http.get<any>('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d&locale=es');
   }
+
 }
