@@ -1,57 +1,55 @@
-.crypto-item {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  .crypto-symbol {
-    font-weight: bold;
-  }
-  
-  .crypto-price {
-    color: green;
-  }
+.crypto-item-saved {
+  //display: inline-block;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  //margin-bottom: 10px;
+  padding: 10px;
+  margin-right: 5px;
+}
 
-  .crypto-item-saved {
-    //display: inline-block;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    //margin-bottom: 10px;
-    padding: 10px;
-    margin-right: 5px;
-  }
-  
-  .crypto-symbol-saved {
-    font-weight: bold;
-  }
-  
-  .crypto-price-saved {
-    color: green;
-  }
+.crypto-symbol-saved {
+  font-weight: bold;
+}
 
-  .crypto-box-saved {
-    margin-right: 30px;
-  }
-  .crypto-boxboss-saved {
-    //display: flex;
-  }
-  .deleteCard {
-    color:red;
-  }
-  .prueba {
-    font-size: 12px;
-    font-family: IBM Plex Mono;
-    font-weight: 400;
-  }
-  .example-container {
-    height: 400px;
-    overflow: auto;
-  }
-  
-  table {
-    width: 100%;
-  }
-  .donutChart{
-    display: flex;
-  }
+.crypto-price-saved {
+  color: green;
+}
+
+.crypto-box-saved {
+  margin-right: 30px;
+}
+
+.crypto-boxboss-saved {
+  //display: flex;
+}
+
+.deleteCard {
+  color: red;
+}
+
+.prueba {
+  font-size: 12px;
+  font-family: IBM Plex Mono;
+  font-weight: 400;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.donutChart {
+  display: flex;
+}
+
+.text-success {
+  color: green;
+}
+
+.text-danger {
+  color: red;
+}

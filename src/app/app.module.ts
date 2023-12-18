@@ -20,6 +20,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CryptoDetailComponent } from './components/crypto-detail/crypto-detail.component';
+import { CryptocurrencyListComponent } from './components/cryptocurrency-list/cryptocurrency-list.component';
 
 
 
@@ -35,7 +37,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     PopupComponent,
     PopupEditCryptoComponent,
     SelectComponent,
-    DonutChartComponent
+    DonutChartComponent,
+    CryptoDetailComponent,
+    CryptocurrencyListComponent
   ],
   imports: [
     BrowserModule,

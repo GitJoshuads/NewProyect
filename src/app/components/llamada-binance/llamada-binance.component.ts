@@ -16,16 +16,9 @@ export class LlamadaBinanceComponent implements OnInit {
   listCrypto: any[] = [];
   listCryptoTotal: number = 0;
   nombreRecuperado: string = '';
-  displayedColumns: string[] = ['position', 'name', 'price1', 'price24', 'price7', 'weight', 'symbol', 'delete'];
+  displayedColumns: string[] = ['caprank','position', 'name', 'price1', 'price24', 'price7', 'capmercado', 'weight', 'symbol', 'delete'];
   dataSource = this.listCrypto;
   single: any[] = [];
-
-  constructor(
-    private cryptoPriceService: CryptoPriceService,
-    private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap,
-    public dialog: MatDialog
-  ) {}
-
   listEvent: any[] = [];
   eventInputPr: string = '';
   eventInputCom: string = '';
@@ -34,6 +27,12 @@ export class LlamadaBinanceComponent implements OnInit {
   totalBTC: number = 0;
   priceBTC: number = 0;
   cryptoNameMap: { [key: string]: string } = {};
+
+  constructor(
+    private cryptoPriceService: CryptoPriceService,
+    private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap,
+    public dialog: MatDialog
+  ) {}
 
   handleChildEventInputPr(evt: any) {
     this.eventInputPr = evt;
@@ -64,7 +63,7 @@ export class LlamadaBinanceComponent implements OnInit {
     this.sortArrayGraph(this.listCrypto);
     this.sortArrayGraph(this.single);
     setInterval(() => this.recharge(), 10000);
-    //setInterval(() => this.rechargeCoingecko(), 30000);
+    //setInterval(() => this.rechargeCoingecko(), 100000);
   }
 
   async recharge(): Promise<void> {
@@ -117,6 +116,8 @@ export class LlamadaBinanceComponent implements OnInit {
     this.listCrypto.forEach((element) => {
       this.cryptoDataCoinmarketcap.forEach((elemento) => {
         if (element.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
+          element.market_cap_rank = elemento.market_cap_rank;
+          element.market_cap = elemento.market_cap;
           element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
           element.price24h = elemento.price_change_percentage_24h_in_currency.toFixed(1);
           element.price7d = elemento.price_change_percentage_7d_in_currency.toFixed(1);
