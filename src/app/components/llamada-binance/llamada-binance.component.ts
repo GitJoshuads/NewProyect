@@ -27,6 +27,7 @@ export class LlamadaBinanceComponent implements OnInit {
   totalBTC: number = 0;
   priceBTC: number = 0;
   cryptoNameMap: { [key: string]: string } = {};
+  lastUpdateDate: Date | null = null;
 
   constructor(
     private cryptoPriceService: CryptoPriceService,
@@ -53,17 +54,38 @@ export class LlamadaBinanceComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    localStorage.getItem('criptomonedas')
-      ? (this.listCrypto = JSON.parse(localStorage.getItem('criptomonedas') || ''))
-      : '';
-    await this.recharge();
-    await this.rechargeCoingecko();
-    this.dataSource = this.listCrypto;
-    this.single = this.listCrypto.map((item: any) => ({ name: item.symbol, value: item.dolares }));
-    this.sortArrayGraph(this.listCrypto);
-    this.sortArrayGraph(this.single);
-    setInterval(() => this.recharge(), 10000);
-    //setInterval(() => this.rechargeCoingecko(), 100000);
+    this.loadFromLocalStorage();
+    await this.checkAndUpdateData();
+    setInterval(() => this.checkAndUpdateData(), 10000);
+  }
+
+  loadFromLocalStorage(): void {
+    const storedData = localStorage.getItem('criptomonedas');
+    try {
+      const parsedData = storedData ? JSON.parse(storedData) : null;
+      this.lastUpdateDate = parsedData ? new Date(parsedData.lastUpdateDate) : null;
+      this.listCrypto = parsedData ? parsedData.listCrypto || [] : [];
+      this.dataSource = this.listCrypto;
+    } catch (error) {
+      console.error('Error al analizar datos almacenados:', error);
+    }
+  }
+
+  checkAndUpdateData(): void {
+    if (!this.lastUpdateDate || this.isOneDayPassed(this.lastUpdateDate)) {
+      this.lastUpdateDate = new Date();
+      Promise.all([this.recharge(), this.rechargeCoingecko()]).then(() => {
+        this.savedLocalStorage();
+      });
+    }else{
+      this.recharge();
+    }
+  }
+
+  isOneDayPassed(lastUpdate: Date): boolean {
+    const today = new Date();
+    const oneDayInMillis = 24 * 60 * 60 * 1000;
+    return today.getTime() - lastUpdate.getTime() > oneDayInMillis;
   }
 
   async recharge(): Promise<void> {
@@ -116,6 +138,7 @@ export class LlamadaBinanceComponent implements OnInit {
     this.listCrypto.forEach((element) => {
       this.cryptoDataCoinmarketcap.forEach((elemento) => {
         if (element.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
+          element.image = elemento.image;
           element.market_cap_rank = elemento.market_cap_rank;
           element.market_cap = elemento.market_cap;
           element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
@@ -131,8 +154,8 @@ export class LlamadaBinanceComponent implements OnInit {
   }
 
   savedLocalStorage(): void {
-    this.dataSource = this.listCrypto;
-    localStorage.setItem('criptomonedas', JSON.stringify(this.listCrypto));
+    const dataToStore = { lastUpdateDate: this.lastUpdateDate, listCrypto: this.listCrypto };
+    localStorage.setItem('criptomonedas', JSON.stringify(dataToStore));
   }
 
   loopCryptocurrencyArray(): void {

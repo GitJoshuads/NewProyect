@@ -44,6 +44,7 @@ table {
 
 .donutChart {
   display: flex;
+  margin-bottom: 50px;
 }
 
 .text-success {
@@ -52,4 +53,9 @@ table {
 
 .text-danger {
   color: red;
+}
+.imagen-pequena {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }

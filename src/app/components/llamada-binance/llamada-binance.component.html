@@ -32,7 +32,10 @@
       <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef> Symbol ==> {{listCrypto.length}}</th>
-        <td mat-cell *matCellDef="let element" [routerLink]="['/detail', element.symbol]"> {{element.symbol}} </td>
+        <td mat-cell *matCellDef="let element" [routerLink]="['/detail', element.symbol]"> 
+          <img [src]="element.image" class="imagen-pequena">
+          {{element.symbol}} 
+        </td>
       </ng-container>
 
       <!-- Name Column -->
