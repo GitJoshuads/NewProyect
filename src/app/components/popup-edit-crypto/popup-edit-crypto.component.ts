@@ -54,9 +54,16 @@ export class PopupEditCryptoComponent implements OnInit {
   createNewLocation(evt:any){
     if(this.eventInputLocationNew && this.eventInputAmountNew){
       this.childEvent.emit({symbol: evt, newLocation: this.eventInputLocationNew, newAmount: this.eventInputAmountNew});
+      this.selectedValue = true;
     }
   }
   checkEditTotal(value:string){
     this.selectedValue = value === 'true'? true : false;
+  }
+
+  formatearNumero(numero: number): string {
+    const partes = numero.toFixed(2).toString().split('.');
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return partes.join(',');
   }
 }

@@ -259,9 +259,14 @@ export class LlamadaBinanceComponent implements OnInit {
   }
   
   formatearNumero(numero: number): string {
-    const partes = numero.toFixed(2).toString().split('.');
-    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    return partes.join(',');
+    if(typeof numero === 'number'){
+      const partes = numero.toFixed(2).toString().split('.');
+      partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return partes.join(',');
+    }else{
+      return numero;
+    }
+
   }
 
   openDialogEdit(dataCrypto: string): void {

@@ -40,6 +40,16 @@ export class InputComponent {
    console.log(this.inputValue)
    this.childEvent.emit(this.inputValue);
   }
+
+  formatearNumero(numero: number): string {
+    if (typeof numero === 'number'){
+    const partes = numero.toFixed(2).toString().split('.');
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return partes.join(',');
+    }else{
+      return numero;
+    }
+  }
 }
 
 

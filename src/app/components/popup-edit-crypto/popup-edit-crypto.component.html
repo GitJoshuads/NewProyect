@@ -1,6 +1,6 @@
 <div class="crypto-box-saved">
     <div class="content-edit">
-        <h1 mat-dialog-title>{{inputdata.symbol}}: {{eventSelectLocation.value}}</h1>
+        <h1 class="mat-title" mat-dialog-title>{{inputdata.symbol}}: {{formatearNumero(eventSelectLocation.value)}}</h1>
         <p>
             <app-select [dataPopupEditCrypto]="dataPopupEditCrypto"
                 (childEvent)="handleChildEventSelectLocation($event)"></app-select>
@@ -27,6 +27,9 @@
         <div *ngIf="selectedValue" class="margin-top-donut">
             <app-donut-chart [listCrypto]="prueba"></app-donut-chart>
         </div>
+    </div>
+    <div *ngIf="!selectedValue">
+        <img [src]="inputdata.image" class="imagen-pequena">
     </div>
 </div>
 <div mat-dialog-actions>

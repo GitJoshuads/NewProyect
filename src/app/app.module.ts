@@ -22,6 +22,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CryptoDetailComponent } from './components/crypto-detail/crypto-detail.component';
 import { CryptocurrencyListComponent } from './components/cryptocurrency-list/cryptocurrency-list.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -39,7 +40,8 @@ import { CryptocurrencyListComponent } from './components/cryptocurrency-list/cr
     SelectComponent,
     DonutChartComponent,
     CryptoDetailComponent,
-    CryptocurrencyListComponent
+    CryptocurrencyListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
