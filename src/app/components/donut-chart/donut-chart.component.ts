@@ -11,7 +11,7 @@ export class DonutChartComponent {
   @Input() listCrypto:any;
 
   single: any[]= [];
-  view: [number, number] = [1000, 200];
+  view: [number, number] = [600, 200];
 
   // options
   

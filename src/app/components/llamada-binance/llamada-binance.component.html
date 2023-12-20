@@ -1,16 +1,18 @@
-<h1>USDT: {{totalAmout}}</h1>
-<h1>BTC: {{totalBTC}}</h1>
+<div class="crypto-box-total">
+  <h1>USDT: {{formatearNumero(totalAmout)}}</h1>
+  <h1>BTC: {{totalBTC}}</h1>
+</div>
 <div class="crypto-boxboss-saved">
   <div class="donutChart">
     <div class="crypto-box-saved">
       <p>
-        <app-input (childEvent)="handleChildEventInputPr($event)"></app-input>
+        <app-input [placeholder]="{data:'BTC', type:'string'}" (childEvent)="handleChildEventInputPr($event)"></app-input>
       </p>
       <p>
-        <app-input (childEvent)="handleChildEventInputCom($event)"></app-input>
+        <app-input [placeholder]="{data:'USDT', type:'string'}" (childEvent)="handleChildEventInputCom($event)"></app-input>
       </p>
       <p>
-        <app-input (childEvent)="handleChildEventInputAmount($event)"></app-input>
+        <app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputAmount($event)"></app-input>
       </p>
       <p>
         <app-button (childEvent)="handleChildEvent()"></app-button>

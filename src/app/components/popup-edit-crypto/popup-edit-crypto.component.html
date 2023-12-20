@@ -1,20 +1,17 @@
 <div class="crypto-box-saved">
-    <div mat-dialog-content>
-        <h1 mat-dialog-title>Editar {{inputdata.symbol}}!</h1>
+    <div class="content-edit">
+        <h1 mat-dialog-title>{{inputdata.symbol}}: {{eventSelectLocation.value}}</h1>
         <p>
             <app-select [dataPopupEditCrypto]="dataPopupEditCrypto"
                 (childEvent)="handleChildEventSelectLocation($event)"></app-select>
             <!--<button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button>-->
         </p>
-        <p>
-            Amount:{{eventSelectLocation.value}}
-        </p>
-        <p>
-            <app-input (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
+        <p class="margin-top-input-edit">
+            <app-input [placeholder]="{data:eventSelectLocation.value, type:'number'}" (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
         </p>
     </div>
 
-    <div class="create-new-location">
+    <div class="content-edit">
         <div>
             <mat-button-toggle-group [(ngModel)]="selectedValue" (change)="checkEditTotal(selectedValue)"
                 appearance="legacy" name="fontStyle" aria-label="Font Style">
@@ -22,12 +19,12 @@
                 <mat-button-toggle value="false">Editar</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <div *ngIf="!selectedValue">
-            <p><app-input (childEvent)="handleChildEventInputLocationNew($event)"></app-input></p>
-            <p><app-input (childEvent)="handleChildEventInputAmountNew($event)"></app-input></p>
+        <div *ngIf="!selectedValue" class="create-new-location">
+            <p><app-input [placeholder]="{data:'Location', type:'string'}" (childEvent)="handleChildEventInputLocationNew($event)"></app-input></p>
+            <p><app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputAmountNew($event)"></app-input></p>
             <p><button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button></p>
         </div>
-        <div *ngIf="selectedValue">
+        <div *ngIf="selectedValue" class="margin-top-donut">
             <app-donut-chart [listCrypto]="prueba"></app-donut-chart>
         </div>
     </div>

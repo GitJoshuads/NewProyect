@@ -257,10 +257,16 @@ export class LlamadaBinanceComponent implements OnInit {
     });
     this.savedLocalStorage();
   }
+  
+  formatearNumero(numero: number): string {
+    const partes = numero.toFixed(2).toString().split('.');
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return partes.join(',');
+  }
 
   openDialogEdit(dataCrypto: string): void {
     let _popup = this.dialog.open(PopupEditCryptoComponent, {
-      width: '700px',
+      width: '900px',
       height: '350px',
       data: {
         dataCrypto: dataCrypto,
