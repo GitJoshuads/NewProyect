@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CryptoPriceService } from '../../crypto-price.service';
 import { CryptoPriceServiceCoinmarketcap } from '../../crypto-price-coinmarketcap.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ export class LlamadaBinanceComponent implements OnInit {
   single: any[] = [];
   listEvent: any[] = [];
   eventInputPr: string = '';
-  eventInputCom: string = '';
+  eventInputCom: string = 'USDT';
   eventInputAmout: number = 0;
   totalAmout: number = 0;
   totalBTC: number = 0;
@@ -32,7 +32,8 @@ export class LlamadaBinanceComponent implements OnInit {
   constructor(
     private cryptoPriceService: CryptoPriceService,
     private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ) {}
 
   handleChildEventInputPr(evt: any) {
@@ -69,6 +70,14 @@ export class LlamadaBinanceComponent implements OnInit {
     } catch (error) {
       console.error('Error al analizar datos almacenados:', error);
     }
+
+    const storedDataGecko = localStorage.getItem('dataGecko');
+    try {
+      this.cryptoDataCoinmarketcap = storedDataGecko ? JSON.parse(storedDataGecko) : null;
+      //this.mapCryptoPricesCoingecko();
+    } catch (error) {
+      console.error('Error al analizar datosGecko almacenados:', error);
+    }
   }
 
   checkAndUpdateData(): void {
@@ -95,7 +104,7 @@ export class LlamadaBinanceComponent implements OnInit {
       this.cryptoData.forEach((elemen) => {
         this.priceBTC = elemen.symbol === 'BTCUSDT' ? elemen.price : this.priceBTC;
         let amountC = element.dataAmount.reduce((total: number, data: any) => total + data.value, 0);
-        if (element.symbol === elemen.symbol) {
+        if (element.symbol + 'USDT' === elemen.symbol) {
           element.amount = amountC;
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
@@ -112,8 +121,8 @@ export class LlamadaBinanceComponent implements OnInit {
   }
 
   async rechargeCoingecko(): Promise<void> {
-    await this.getCryptoPricesCoinmarketcap();
-    this.getCryptoPricesCoingecko();
+    await this.getCryptoPricesCoingecko();
+    //this.mapCryptoPricesCoingecko();
   }
 
   async getCryptoPrices(): Promise<void> {
@@ -125,20 +134,24 @@ export class LlamadaBinanceComponent implements OnInit {
     }
   }
 
-  async getCryptoPricesCoinmarketcap(): Promise<void> {
+  async getCryptoPricesCoingecko(): Promise<void> {
     try {
       const data = await this.cryptoPriceServiceCoinmarketcap.getCryptoData().toPromise();
       this.cryptoDataCoinmarketcap = data;
+      localStorage.setItem('dataGecko', JSON.stringify(this.cryptoDataCoinmarketcap));
     } catch (error:any) {
       console.error('Error al obtener datos de Coinmarketcap', error.message);
     }
   }
 
-  async getCryptoPricesCoingecko(): Promise<void> {
+  async mapCryptoPricesCoingecko(): Promise<void> {
     this.listCrypto.forEach((element) => {
       this.cryptoDataCoinmarketcap.forEach((elemento) => {
         if (element.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
           element.image = elemento.image;
+          element.name = elemento.name;
+          element.symbol = elemento.symbol.toUpperCase();
+          element.symbolC = (elemento.symbol + 'USDT').toUpperCase()
           element.market_cap_rank = elemento.market_cap_rank;
           element.market_cap = elemento.market_cap;
           element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
@@ -158,28 +171,35 @@ export class LlamadaBinanceComponent implements OnInit {
     localStorage.setItem('criptomonedas', JSON.stringify(dataToStore));
   }
 
-  loopCryptocurrencyArray(): void {
-    this.cryptoData.forEach((elemento, indice, arreglo) => {
-      if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
-        this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
-
-        this.listCrypto.push({
-          'price': elemento.price,
-          'symbol': elemento.symbol,
-          'amount': this.eventInputAmout,
-          'dolares': (elemento.price * this.eventInputAmout),
-          dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
-        });
-        this.savedLocalStorage();
-      }
-    });
-  }
-
   contentChecker(): void {
-    this.cryptoData.forEach((elemento) => {
-      if (elemento.symbol === this.eventInputPr + this.eventInputCom) {
-        this.loopCryptocurrencyArray();
-      }
+    this.cryptoData.forEach((elementoSaved) => {
+        if (elementoSaved.symbol === this.eventInputPr + this.eventInputCom) {
+          //this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
+            this.cryptoDataCoinmarketcap.forEach((elemento) => {
+              if (elementoSaved.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
+                this.listCrypto.push({
+                  'price': elementoSaved.price,
+                  'amount': this.eventInputAmout,
+                  'dolares': (elementoSaved.price * this.eventInputAmout),
+                  'image' : elemento.image,
+                  'name' : elemento.name,
+                  'symbol' : elemento.symbol.toUpperCase(),
+                  'symbolC' : (elemento.symbol + 'USDT').toUpperCase(),
+                  'market_cap_rank' : elemento.market_cap_rank,
+                  'market_cap' : elemento.market_cap,
+                  'price1h' : elemento.price_change_percentage_1h_in_currency.toFixed(1),
+                  'price24h' : elemento.price_change_percentage_24h_in_currency.toFixed(1),
+                  'price7d' : elemento.price_change_percentage_7d_in_currency.toFixed(1), 
+                  dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
+                });
+              }
+            });
+
+          //this.mapCryptoPricesCoingecko();
+          this.cdr.detectChanges();
+          this.recharge();
+          this.savedLocalStorage();
+        }
     });
   }
 

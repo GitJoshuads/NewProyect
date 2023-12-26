@@ -8,7 +8,23 @@
 .crypto-symbol {
     font-weight: bold;
 }
-  
+
 .crypto-price {
     color: green;
 }
+
+.text-success {
+    color: green;
+}
+
+.text-danger {
+    color: red;
+}
+.imagen-pequena {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  .pointer-text {
+    cursor: pointer;
+  }
