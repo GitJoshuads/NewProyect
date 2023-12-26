@@ -57,7 +57,8 @@ export class LlamadaBinanceComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.loadFromLocalStorage();
     await this.checkAndUpdateData();
-    setInterval(() => this.checkAndUpdateData(), 10000);
+    setInterval(() => this.recharge(), 10000);
+    setInterval(()=> this.rechargeCoingecko(),200000);
   }
 
   loadFromLocalStorage(): void {
@@ -122,7 +123,7 @@ export class LlamadaBinanceComponent implements OnInit {
 
   async rechargeCoingecko(): Promise<void> {
     await this.getCryptoPricesCoingecko();
-    //this.mapCryptoPricesCoingecko();
+    this.mapCryptoPricesCoingecko();
   }
 
   async getCryptoPrices(): Promise<void> {
@@ -147,11 +148,7 @@ export class LlamadaBinanceComponent implements OnInit {
   async mapCryptoPricesCoingecko(): Promise<void> {
     this.listCrypto.forEach((element) => {
       this.cryptoDataCoinmarketcap.forEach((elemento) => {
-        if (element.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
-          element.image = elemento.image;
-          element.name = elemento.name;
-          element.symbol = elemento.symbol.toUpperCase();
-          element.symbolC = (elemento.symbol + 'USDT').toUpperCase()
+        if (element.symbol === elemento.symbol.toUpperCase()) {
           element.market_cap_rank = elemento.market_cap_rank;
           element.market_cap = elemento.market_cap;
           element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
@@ -160,6 +157,7 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       });
     });
+    this.savedLocalStorage();
   }
 
   sortArrayGraph(data: any[]): void {

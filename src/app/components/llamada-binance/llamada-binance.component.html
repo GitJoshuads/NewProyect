@@ -35,13 +35,14 @@
               <td class="align-item fixed-row" scope="col">24h Volume</td>
               <td class="align-item fixed-row" scope="col">Market Cap</td>
               <td class="align-item fixed-row" scope="col">Amount</td>
+              <td class="align-item fixed-row" scope="col">USDT ==> {{formatearNumero(totalAmout)}}</td>
               <td class="align-item fixed-row" scope="col">Opciones</td>
           </tr>
       </thead>
       <tbody>
           <tr *ngFor="let item of listCrypto" >
               <td class="align-item">{{item.market_cap_rank}}</td>
-              <td class="pointer-text" [routerLink]="['/detail', item.symbol + 'USDT']"><img [src]="item.image" class="imagen-pequena">{{ item.name }}-{{item.symbol}}</td>
+              <td class="pointer-text" [routerLink]="['/detail', item.symbol + 'USDT']"><img [src]="item.image" class="imagen-pequena">{{ item.name }} ({{item.symbol}})</td>
               <td class="align-item">${{ item.price }}</td>
               <td class="align-item" [ngClass]="item.price1h > 0? 'text-success' : 'text-danger'">{{ item.price1h | number:'1.1-1' }}%</td>
               <td class="align-item" [ngClass]="item.price24h > 0? 'text-success' : 'text-danger'">{{ item.price24h | number:'1.1-1'}}%</td>
@@ -49,6 +50,7 @@
               <td class="align-item">{{ item.total_volume | currency:'':'symbol':'1.0-0' }}</td>
               <td class="align-item">{{ item.market_cap | currency:'':'symbol':'1.0-0' }}</td>
               <td class="align-item">{{ item.amount}}</td>
+              <td class="align-item">{{ item.dolares}}</td>
               <td class="align-item">
                 <button class="deleteCard" mat-raised-button (click)="openDialogEdit(item)">Editar</button>
                 <button class="deleteCard" mat-raised-button (click)="openDialog('0ms', '0ms', item.symbol)">Eliminar</button>

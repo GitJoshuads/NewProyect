@@ -24,12 +24,14 @@ export class InputComponent {
   }
   onKeyPress(event: any): void {
     const inputChar = String.fromCharCode(event.charCode);
-    if(this.placeholder.type === 'number'){
-      // Verifica si el carácter presionado es un dígito
-      if (!/^\d*$/.test(inputChar)) {
-        event.preventDefault();   
+    const isNumberInput = this.placeholder.type === 'number';
+  
+    if (isNumberInput) {
+      // Verifica si el carácter presionado es un dígito, "." o ","
+      if (!/^\d*[.,]?\d*$/.test(inputChar)) {
+        event.preventDefault();
       }
-    }else{
+    } else {
       // Verifica si la tecla presionada es una letra
       if (!/^[a-zA-Z]*$/.test(inputChar)) {
         event.preventDefault();
