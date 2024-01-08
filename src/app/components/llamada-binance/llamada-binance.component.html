@@ -3,25 +3,35 @@
   <h1>BTC: {{totalBTC}}</h1>
 </div>
 <div class="crypto-boxboss-saved">
-  <div class="donutChart">
-    <div class="crypto-box-saved">
-      <p>
-        <app-input [placeholder]="{data:'BTC', type:'string'}" (childEvent)="handleChildEventInputPr($event)"></app-input>
-      </p>
-      <p>
-        <app-input [placeholder]="{data:'USDT', type:'string'}" (childEvent)="handleChildEventInputCom($event)"></app-input>
-      </p>
-      <p>
-        <app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputAmount($event)"></app-input>
-      </p>
-      <p>
-        <app-button (childEvent)="handleChildEvent()"></app-button>
-      </p>
-    </div>
-    <div>
-      <app-donut-chart [listCrypto]="single"></app-donut-chart>
-    </div>
-  </div>
+  <table>
+    <tr>
+      <td style="width: 50%;">
+        <div class="donutChart">
+          <div class="crypto-box-saved">
+            <p>
+              <app-input [placeholder]="{data:'BTC', type:'string'}" (childEvent)="handleChildEventInputPr($event)"></app-input>
+            </p>
+            <p>
+              <app-input [placeholder]="{data:'USDT', type:'string'}" (childEvent)="handleChildEventInputCom($event)"></app-input>
+            </p>
+            <p>
+              <app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputAmount($event)"></app-input>
+            </p>
+            <p>
+              <app-button (childEvent)="handleChildEvent()"></app-button>
+            </p>
+          </div>
+          <div>
+            <app-donut-chart [listCrypto]="single"></app-donut-chart>
+          </div>
+        </div>
+      </td>
+      <td>
+        <app-follow-up></app-follow-up>
+      </td>
+    </tr>
+  </table>
+
   <section class="table-container-wallet" tabindex="0">
     <table class="table table-hover">
       <thead>
@@ -50,7 +60,7 @@
               <td class="align-item">{{ item.total_volume | currency:'':'symbol':'1.0-0' }}</td>
               <td class="align-item">{{ item.market_cap | currency:'':'symbol':'1.0-0' }}</td>
               <td class="align-item">{{ item.amount}}</td>
-              <td class="align-item">{{ item.dolares}}</td>
+              <td class="align-item">${{ formatearNumero(item.dolares)}}</td>
               <td class="align-item">
                 <button class="deleteCard" mat-raised-button (click)="openDialogEdit(item)">Editar</button>
                 <button class="deleteCard" mat-raised-button (click)="openDialog('0ms', '0ms', item.symbol)">Eliminar</button>

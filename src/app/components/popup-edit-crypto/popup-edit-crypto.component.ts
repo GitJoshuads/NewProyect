@@ -35,7 +35,7 @@ export class PopupEditCryptoComponent implements OnInit {
     this.eventInputLocationNew = evt;
   }
   handleChildEventInputAmountNew(evt: any) {
-    this.eventInputAmountNew = parseInt(evt);
+    this.eventInputAmountNew = parseFloat(evt);
   }
   
 

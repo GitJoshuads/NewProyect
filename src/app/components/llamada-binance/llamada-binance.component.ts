@@ -45,7 +45,7 @@ export class LlamadaBinanceComponent implements OnInit {
   }
 
   handleChildEventInputAmount(evt: any) {
-    this.eventInputAmout = parseInt(evt);
+    this.eventInputAmout = parseFloat(evt);
   }
 
   handleChildEvent() {
@@ -170,41 +170,50 @@ export class LlamadaBinanceComponent implements OnInit {
   }
 
   contentChecker(): void {
-    this.cryptoData.forEach((elementoSaved) => {
-        if (elementoSaved.symbol === this.eventInputPr + this.eventInputCom) {
-          //this.totalAmout = parseFloat(((elemento.price * this.eventInputAmout) + this.totalAmout).toFixed(2));
-            this.cryptoDataCoinmarketcap.forEach((elemento) => {
-              if (elementoSaved.symbol === (elemento.symbol + 'usdt').toUpperCase()) {
-                this.listCrypto.push({
-                  'price': elementoSaved.price,
-                  'amount': this.eventInputAmout,
-                  'dolares': (elementoSaved.price * this.eventInputAmout),
-                  'image' : elemento.image,
-                  'name' : elemento.name,
-                  'symbol' : elemento.symbol.toUpperCase(),
-                  'symbolC' : (elemento.symbol + 'USDT').toUpperCase(),
-                  'market_cap_rank' : elemento.market_cap_rank,
-                  'market_cap' : elemento.market_cap,
-                  'price1h' : elemento.price_change_percentage_1h_in_currency.toFixed(1),
-                  'price24h' : elemento.price_change_percentage_24h_in_currency.toFixed(1),
-                  'price7d' : elemento.price_change_percentage_7d_in_currency.toFixed(1), 
-                  dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
-                });
-              }
-            });
+    let found = false;
 
-          //this.mapCryptoPricesCoingecko();
-          this.cdr.detectChanges();
-          this.recharge();
-          this.savedLocalStorage();
-        }
+    this.cryptoData.forEach((elementoSaved) => {
+      if (elementoSaved.symbol === this.eventInputPr + this.eventInputCom) {
+        this.contentCheckerGecko(elementoSaved);
+        found = true;
+      }
+    });
+  
+    if (!found) {
+      // Si no se encontró ninguna coincidencia en cryptoData, llamar a contentCheckerGecko con la concatenación de eventInputPr y eventInputCom
+      this.contentCheckerGecko(this.eventInputPr + this.eventInputCom);
+    }
+    this.cdr.detectChanges();
+    this.recharge();
+    this.savedLocalStorage();
+  }
+
+  contentCheckerGecko(elementoSaved:any){
+    this.cryptoDataCoinmarketcap.forEach((elemento) => {
+      if ((elementoSaved.symbol || elementoSaved)  === (elemento.symbol + 'usdt').toUpperCase()) {
+        this.listCrypto.push({
+          'price': elementoSaved.price || elemento.current_price,
+          'amount': this.eventInputAmout,
+          'dolares': ((elementoSaved.price || elemento.current_price) * this.eventInputAmout),
+          'image' : elemento.image,
+          'name' : elemento.name,
+          'symbol' : elemento.symbol.toUpperCase(),
+          'symbolC' : (elemento.symbol + 'USDT').toUpperCase(),
+          'market_cap_rank' : elemento.market_cap_rank,
+          'market_cap' : elemento.market_cap,
+          'price1h' : elemento.price_change_percentage_1h_in_currency.toFixed(1),
+          'price24h' : elemento.price_change_percentage_24h_in_currency.toFixed(1),
+          'price7d' : elemento.price_change_percentage_7d_in_currency.toFixed(1), 
+          dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
+        });
+      }
     });
   }
 
   savedContentChecker(): void {
     let contador = true;
     this.listCrypto.forEach((element) => {
-      if (this.eventInputPr + this.eventInputCom === element.symbol) {
+      if (this.eventInputPr + this.eventInputCom === element.symbol + this.eventInputCom) {
         contador = false;
       }
     });
