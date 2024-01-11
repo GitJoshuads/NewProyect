@@ -1,1 +1,28 @@
-<p>follow-up works!</p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradingView Widget Example</title>
+</head>
+<body>
+    <mat-button-toggle-group [(ngModel)]="selectedValue" (change)="checkEditTotal(selectedValue)"
+    appearance="legacy" name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="true">BTC.D</mat-button-toggle>
+    <mat-button-toggle value="false">ETH.D</mat-button-toggle>
+    <mat-button-toggle value="false">AllCOIN</mat-button-toggle>
+</mat-button-toggle-group>
+
+<iframe
+  *ngIf="selectedValue"
+  [src]="safeTradingViewUrl"
+  frameborder="0"
+  allowfullscreen
+  style="width: 100%; height: 300px;"
+></iframe>
+<iframe
+ *ngIf="!selectedValue"
+  [src]="safeTradingViewUrlETH"
+  frameborder="0"
+  allowfullscreen
+  style="width: 100%; height: 300px;"
+></iframe>

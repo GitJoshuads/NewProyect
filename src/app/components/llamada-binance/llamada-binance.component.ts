@@ -4,6 +4,7 @@ import { CryptoPriceServiceCoinmarketcap } from '../../crypto-price-coinmarketca
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-llamada-binance',
@@ -23,7 +24,8 @@ export class LlamadaBinanceComponent implements OnInit {
   eventInputPr: string = '';
   eventInputCom: string = 'USDT';
   eventInputAmout: number = 0;
-  totalAmout: number = 0;
+  totalAmount: number = 0;
+  totalAmountPrev: number = 0;
   totalBTC: number = 0;
   priceBTC: number = 0;
   cryptoNameMap: { [key: string]: string } = {};
@@ -100,16 +102,18 @@ export class LlamadaBinanceComponent implements OnInit {
 
   async recharge(): Promise<void> {
     await this.getCryptoPrices();
-    this.totalAmout = 0;
+    this.totalAmountPrev = cloneDeep(parseFloat(this.totalAmount.toFixed(2)));
+    this.totalAmount = 0;
     this.listCrypto.forEach((element) => {
       this.cryptoData.forEach((elemen) => {
         this.priceBTC = elemen.symbol === 'BTCUSDT' ? elemen.price : this.priceBTC;
         let amountC = element.dataAmount.reduce((total: number, data: any) => total + data.value, 0);
         if (element.symbol + 'USDT' === elemen.symbol) {
           element.amount = amountC;
+          element.pricePrev = cloneDeep(element.price);
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
-          this.totalAmout += elemen.price * element.amount;
+          this.totalAmount += elemen.price * element.amount;
           this.single = this.listCrypto.map((item: any) => ({ name: item.symbol, value: item.dolares }));
         }
       });
@@ -117,8 +121,8 @@ export class LlamadaBinanceComponent implements OnInit {
     this.sortArrayGraph(this.listCrypto);
     this.sortArrayGraph(this.single);
     this.dataSource = this.listCrypto;
-    this.totalBTC = (this.totalAmout * 1) / this.priceBTC;
-    this.totalAmout = parseFloat(this.totalAmout.toFixed(2));
+    this.totalBTC = (this.totalAmount * 1) / this.priceBTC;
+    this.totalAmount = parseFloat(this.totalAmount.toFixed(2));
   }
 
   async rechargeCoingecko(): Promise<void> {
@@ -149,6 +153,7 @@ export class LlamadaBinanceComponent implements OnInit {
     this.listCrypto.forEach((element) => {
       this.cryptoDataCoinmarketcap.forEach((elemento) => {
         if (element.symbol === elemento.symbol.toUpperCase()) {
+          element.price = elemento.current_price;
           element.market_cap_rank = elemento.market_cap_rank;
           element.market_cap = elemento.market_cap;
           element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);

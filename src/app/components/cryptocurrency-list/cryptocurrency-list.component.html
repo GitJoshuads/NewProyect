@@ -15,7 +15,7 @@
     <tbody>
         <tr *ngFor="let item of dataCoingecko" >
             <th scope="row">{{item.market_cap_rank}}</th>
-            <td class="pointer-text" [routerLink]="['/detail', item.symbol + 'USDT']"><img [src]="item.image" class="imagen-pequena">{{ item.name }}-{{item.symbol}}</td>
+            <td class="pointer-text" [routerLink]="['/detail', item.symbol + 'USDT']"><img [src]="item.image" class="imagen-pequena">{{ item.name }} ({{item.symbol}})</td>
             <td>${{ item.current_price }}</td>
             <td [ngClass]="item.price_change_percentage_1h_in_currency > 0? 'text-success' : 'text-danger'">{{ item.price_change_percentage_1h_in_currency | number:'1.1-1' }}%</td>
             <td [ngClass]="item.price_change_percentage_24h_in_currency > 0? 'text-success' : 'text-danger'">{{ item.price_change_percentage_24h_in_currency | number:'1.1-1'}}%</td>

@@ -91,3 +91,29 @@ margin-bottom: 60px;
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
+@keyframes flashGreen {
+  0%, 50%, 100% {
+    color: black; /* Color original */
+  }
+  25%, 75% {
+    color: green; /* Color de parpadeo en verde */
+  }
+}
+
+@keyframes flashRed {
+  0%, 50%, 100% {
+    color: black; /* Color original */
+  }
+  25%, 75% {
+    color: red; /* Color de parpadeo en rojo */
+  }
+}
+.flash-green {
+  animation: flashGreen 5s infinite; /* 2 segundos de duración, infinito para repetir */
+}
+
+.flash-red {
+  animation: flashRed 5s infinite; /* 2 segundos de duración, infinito para repetir */
+}
+
+
