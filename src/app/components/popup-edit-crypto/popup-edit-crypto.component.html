@@ -6,9 +6,12 @@
                 (childEvent)="handleChildEventSelectLocation($event)"></app-select>
             <!--<button (click)="createNewLocation(inputdata.symbol)" mat-button>Crear</button>-->
         </p>
-        <p class="margin-top-input-edit">
+        <div class="margin-top-input-edit-no-found">
+            Amount
             <app-input [placeholder]="{data:eventSelectLocation.value, type:'number'}" (childEvent)="handleChildEventInputAmountEdit($event)"></app-input>
-        </p>
+            Price
+            <app-input *ngIf="inputdata.market_cap_rank === 'X'" [placeholder]="{data:inputdata.price, type:'number'}" (childEvent)="handleChildEventInputPriceEdit($event)"></app-input>
+        </div>
     </div>
 
     <div class="content-edit">

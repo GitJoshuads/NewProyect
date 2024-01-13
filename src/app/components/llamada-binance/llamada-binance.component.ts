@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
 import { cloneDeep } from 'lodash';
+import { PopupCreateCryptoComponent } from '../popup-create-crypto/popup-create-crypto.component';
 
 @Component({
   selector: 'app-llamada-binance',
@@ -113,7 +114,6 @@ export class LlamadaBinanceComponent implements OnInit {
           element.pricePrev = cloneDeep(element.price);
           element.price = elemen.price;
           element.dolares = elemen.price * element.amount;
-          this.totalAmount += elemen.price * element.amount;
           this.single = this.listCrypto.map((item: any) => ({ name: item.symbol, value: item.dolares }));
         }
       });
@@ -121,8 +121,15 @@ export class LlamadaBinanceComponent implements OnInit {
     this.sortArrayGraph(this.listCrypto);
     this.sortArrayGraph(this.single);
     this.dataSource = this.listCrypto;
-    this.totalBTC = (this.totalAmount * 1) / this.priceBTC;
-    this.totalAmount = parseFloat(this.totalAmount.toFixed(2));
+    this.calculateTotal();
+
+  }
+  calculateTotal(){
+    this.listCrypto.forEach((element) => {
+      this.totalAmount += element.price * element.amount;
+      this.totalBTC = (this.totalAmount * 1) / this.priceBTC;
+      this.totalAmount = parseFloat(this.totalAmount.toFixed(2));
+    });
   }
 
   async rechargeCoingecko(): Promise<void> {
@@ -186,7 +193,11 @@ export class LlamadaBinanceComponent implements OnInit {
   
     if (!found) {
       // Si no se encontró ninguna coincidencia en cryptoData, llamar a contentCheckerGecko con la concatenación de eventInputPr y eventInputCom
+      let contardor = this.listCrypto.length;
       this.contentCheckerGecko(this.eventInputPr + this.eventInputCom);
+      if(contardor === this.listCrypto.length){
+        this.openDialogCreate(this.eventInputPr, this.eventInputAmout);
+      }
     }
     this.cdr.detectChanges();
     this.recharge();
@@ -211,6 +222,7 @@ export class LlamadaBinanceComponent implements OnInit {
           'price7d' : elemento.price_change_percentage_7d_in_currency.toFixed(1), 
           dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
         });
+        this.totalAmount = parseFloat((((elementoSaved.price || elemento.current_price) * this.eventInputAmout) + this.totalAmount).toFixed(2));
       }
     });
   }
@@ -241,6 +253,31 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       }
     });
+    this.savedLocalStorage();
+  }
+
+  createNewCryptoNotFound(item: any): void {
+    this.listCrypto.push({
+      "symbol": item.symbol,
+      "price": item.total,
+      "amount": item.newAmount,
+      "dolares": item.total * item.newAmount,
+      "dataAmount": [
+        {
+          "name": item.newLocation,
+          "value": item.newAmount
+        }
+      ],
+      "image": "",
+      "market_cap_rank":'X',
+      "market_cap": 0,
+      "price1h": "0",
+      "price24h": "0",
+      "price7d": "0",
+      "name": item.name
+
+    });
+    this.totalAmount = parseFloat(((item.total * item.newAmount) + this.totalAmount).toFixed(2));
     this.savedLocalStorage();
   }
 
@@ -320,6 +357,24 @@ export class LlamadaBinanceComponent implements OnInit {
     })
     _popup.componentInstance.childEvent.subscribe((data) => {
       this.createNewLocation(data);
+    });
+  }
+
+  openDialogCreate(dataCrypto: any, amount: any): void {
+    let _popup = this.dialog.open(PopupCreateCryptoComponent, {
+      width: '450px',
+      height: '350px',
+      data: {
+        dataCrypto: dataCrypto, amount,
+      }
+    });
+    _popup.afterClosed().subscribe(item => {
+      if (item && item.dataEdit && item.dataEdit.edit) {
+        this.createNewCryptoNotFound(item);
+      }
+    })
+    _popup.componentInstance.childEvent.subscribe((data) => {
+      this.createNewCryptoNotFound(data);
     });
   }
 }

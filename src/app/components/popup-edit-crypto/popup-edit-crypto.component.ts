@@ -12,6 +12,7 @@ export class PopupEditCryptoComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private ref: MatDialogRef<PopupEditCryptoComponent>) { }
   inputdata: any;
   eventInputAmountEdit: any;
+  eventInputPriceEdit: any;
   dataPopupEditCrypto: any = this.data;
   eventSelectLocation: any='';
   eventInputAmountNew: any;
@@ -27,6 +28,11 @@ export class PopupEditCryptoComponent implements OnInit {
   handleChildEventInputAmountEdit(evt: any) {
     this.eventInputAmountEdit = parseInt(evt);
   }
+
+  handleChildEventInputPriceEdit(evt: any) {
+    this.eventInputPriceEdit = parseInt(evt);
+  }
+
   handleChildEventSelectLocation(evt:any){
     this.eventSelectLocation = evt;
   }

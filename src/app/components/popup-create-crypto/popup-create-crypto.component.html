@@ -1,0 +1,17 @@
+<div class="crypto-box-saved">
+    <div class="content-edit-w">
+        No se ha podido encontrar la criptomoneda solicitada, debe crear todos sus datos.
+    </div>
+    <div class="content-edit">
+        <p><app-input [placeholder]="{data:inputdata, type:'string'}" (childEvent)="handleChildEventInputCrypto($event)"></app-input></p>
+        <p><app-input [placeholder]="{data:'Symbol', type:'string'}" (childEvent)="handleChildEventInputCryptoSymbol($event)"></app-input></p>
+        <p><app-input [placeholder]="{data:'Location', type:'string'}" (childEvent)="handleChildEventInputLocation($event)"></app-input></p>
+        <p><app-input [placeholder]="{data:inputdatAmount, type:'number'}" (childEvent)="handleChildEventInputAmount($event)"></app-input></p>
+        <p><app-input [placeholder]="{data:'Price', type:'number'}" (childEvent)="handleChildEventInputTotal($event)"></app-input></p>
+     
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button (click)="createNewLocation()" mat-button mat-dialog-close>Crear</button>
+    <button (click)="closepopup()" mat-button mat-dialog-close>Cancelar Creación</button>
+</div>

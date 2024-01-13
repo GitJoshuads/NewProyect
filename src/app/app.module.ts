@@ -24,6 +24,7 @@ import { CryptoDetailComponent } from './components/crypto-detail/crypto-detail.
 import { CryptocurrencyListComponent } from './components/cryptocurrency-list/cryptocurrency-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
+import { PopupCreateCryptoComponent } from './components/popup-create-crypto/popup-create-crypto.component';
 
 
 
@@ -43,7 +44,8 @@ import { FollowUpComponent } from './components/follow-up/follow-up.component';
     CryptoDetailComponent,
     CryptocurrencyListComponent,
     FooterComponent,
-    FollowUpComponent
+    FollowUpComponent,
+    PopupCreateCryptoComponent
   ],
   imports: [
     BrowserModule,
