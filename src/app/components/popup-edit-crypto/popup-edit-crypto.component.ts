@@ -26,11 +26,11 @@ export class PopupEditCryptoComponent implements OnInit {
     this.eventSelectLocation = this.inputdata['dataAmount'][0];
   }
   handleChildEventInputAmountEdit(evt: any) {
-    this.eventInputAmountEdit = parseInt(evt);
+    this.eventInputAmountEdit = parseFloat(evt);
   }
 
   handleChildEventInputPriceEdit(evt: any) {
-    this.eventInputPriceEdit = parseInt(evt);
+    this.eventInputPriceEdit = parseFloat(evt);
   }
 
   handleChildEventSelectLocation(evt:any){
@@ -49,8 +49,8 @@ export class PopupEditCryptoComponent implements OnInit {
     this.ref.close(false);
   }
   editpopup(data: string) {
-    if (this.eventInputAmountEdit) {
-      this.ref.close({ dataCrypto: data, dataEdit: {edit: this.eventInputAmountEdit, symbol: this.eventSelectLocation }});
+    if (this.eventInputAmountEdit || this.eventInputPriceEdit) {
+      this.ref.close({ dataCrypto: data, dataEdit: {edit: this.eventInputAmountEdit || this.eventSelectLocation.value, symbol: this.eventSelectLocation, editPrice: this.eventInputPriceEdit || this.inputdata.price}});
     }
   }
   deleteLocationpopup(data: string) {

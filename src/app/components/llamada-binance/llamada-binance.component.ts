@@ -126,7 +126,8 @@ export class LlamadaBinanceComponent implements OnInit {
   }
   calculateTotal(){
     this.listCrypto.forEach((element) => {
-      this.totalAmount += element.price * element.amount;
+      element.dolares = element.price * element.amount;
+      this.totalAmount += element.dolares;
       this.totalBTC = (this.totalAmount * 1) / this.priceBTC;
       this.totalAmount = parseFloat(this.totalAmount.toFixed(2));
     });
@@ -247,6 +248,10 @@ export class LlamadaBinanceComponent implements OnInit {
           list['dataAmount'].forEach((locationD: any) => {
             if (locationD.name === item.dataEdit.symbol.name) {
               locationD.value = item.dataEdit.edit;
+              if(list.market_cap_rank === 'X'){
+                list.dolares = item.dataEdit.editPrice * item.dataEdit.edit;
+                list.price = item.dataEdit.editPrice;
+              }
             }
             list.amount += locationD.value;
           });
@@ -268,7 +273,7 @@ export class LlamadaBinanceComponent implements OnInit {
           "value": item.newAmount
         }
       ],
-      "image": "",
+      "image": "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
       "market_cap_rank":'X',
       "market_cap": 0,
       "price1h": "0",
