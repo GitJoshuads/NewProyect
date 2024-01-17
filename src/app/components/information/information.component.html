@@ -1,0 +1,11 @@
+<div class="box-margin">
+    <h2>Create Information</h2>
+    <h6>Entrada</h6>
+    <p><app-input [placeholder]="{data:'Precio entrada', type:'number'}" (childEvent)="handleChildEventInputEnterPrice($event)"></app-input></p>
+    <p><app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputEnterAmount($event)"></app-input></p>
+    <h6>Salida</h6>
+    <p><app-input [placeholder]="{data:'Precio salida', type:'number'}" (childEvent)="handleChildEventInputExitPrice($event)"></app-input></p>
+    <p><app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="handleChildEventInputExitAmount($event)"></app-input></p>
+    <!-- <textarea name="prueba" id="" cols="30" rows="10"></textarea> -->
+    <button (click)="createInformation()" mat-button>Editar</button>
+    </div>
