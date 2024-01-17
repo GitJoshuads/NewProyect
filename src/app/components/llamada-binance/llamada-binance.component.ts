@@ -6,6 +6,7 @@ import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
 import { cloneDeep } from 'lodash';
 import { PopupCreateCryptoComponent } from '../popup-create-crypto/popup-create-crypto.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-llamada-binance',
@@ -31,6 +32,7 @@ export class LlamadaBinanceComponent implements OnInit {
   priceBTC: number = 0;
   cryptoNameMap: { [key: string]: string } = {};
   lastUpdateDate: Date | null = null;
+  sortByAs: boolean = false;
 
   constructor(
     private cryptoPriceService: CryptoPriceService,
@@ -62,6 +64,24 @@ export class LlamadaBinanceComponent implements OnInit {
     await this.checkAndUpdateData();
     setInterval(() => this.recharge(), 10000);
     setInterval(()=> this.rechargeCoingecko(),200000);
+/*     const miObservable = this.informationComponent.createInformation();
+
+    if (miObservable !== null && miObservable !== undefined) {
+      const miSuscripcion = miObservable.subscribe(
+        (valor:any) => {
+          console.log(`Nuevo valor: ${valor}`);
+          alert('uuuuuu');
+        },
+        (error:any) => {
+          console.error(`Hubo un error: ${error}`);
+          alert('aaaaaa');
+        },
+        () => {
+          console.log('Observación completada');
+          alert('ssssssssss');
+        }
+      );
+    } */
   }
 
   loadFromLocalStorage(): void {
@@ -70,6 +90,7 @@ export class LlamadaBinanceComponent implements OnInit {
       const parsedData = storedData ? JSON.parse(storedData) : null;
       this.lastUpdateDate = parsedData ? new Date(parsedData.lastUpdateDate) : null;
       this.listCrypto = parsedData ? parsedData.listCrypto || [] : [];
+      this.sortArrayGraph(this.listCrypto,'dolares');
       this.dataSource = this.listCrypto;
     } catch (error) {
       console.error('Error al analizar datos almacenados:', error);
@@ -118,12 +139,47 @@ export class LlamadaBinanceComponent implements OnInit {
         }
       });
     });
-    this.sortArrayGraph(this.listCrypto);
-    this.sortArrayGraph(this.single);
     this.dataSource = this.listCrypto;
     this.calculateTotal();
-
   }
+   
+  orderbyUsdt(){
+    this.sortByAs = this.sortByAs === true? false : true;
+    this.sortArrayGraph(this.listCrypto,'dolares');
+  }
+
+  orderBy7d(){
+    this.sortByAs = this.sortByAs === true? false : true;
+    this.sortArrayGraph(this.listCrypto,'price7d');
+  }
+
+  orderBy24h(){
+    this.sortByAs = this.sortByAs === true? false : true;
+    this.sortArrayGraph(this.listCrypto,'price24h');
+  }
+
+  orderBy1h(){
+    this.sortByAs = this.sortByAs === true? false : true;
+    this.sortArrayGraph(this.listCrypto,'price1h');
+  }
+  orderByRank(){
+    this.sortByAs = this.sortByAs === true? false : true;
+    this.sortArrayGraph(this.listCrypto,'market_cap');
+  }
+
+  sortArrayGraph(data: any[], sortBy:any): void {
+    //this.sortByAs = true;
+    let comparacion = 0;
+    data.sort((a: any, b: any) => {
+      if (a[sortBy] < b[sortBy]) {
+        comparacion = -1;  // Indica que 'b' debe ir antes que 'a'
+      } else if (a[sortBy] > b[sortBy]) {
+        comparacion = 1;  // Indica que 'a' debe ir antes que 'b'
+      } 
+      return this.sortByAs ? comparacion : comparacion * -1;
+  });
+  }
+
   calculateTotal(){
     this.listCrypto.forEach((element) => {
       element.dolares = element.price * element.amount;
@@ -164,17 +220,13 @@ export class LlamadaBinanceComponent implements OnInit {
           element.price = elemento.current_price;
           element.market_cap_rank = elemento.market_cap_rank;
           element.market_cap = elemento.market_cap;
-          element.price1h = elemento.price_change_percentage_1h_in_currency.toFixed(1);
-          element.price24h = elemento.price_change_percentage_24h_in_currency.toFixed(1);
-          element.price7d = elemento.price_change_percentage_7d_in_currency.toFixed(1);
+          element.price1h = parseFloat(elemento.price_change_percentage_1h_in_currency.toFixed(1));
+          element.price24h = parseFloat(elemento.price_change_percentage_24h_in_currency.toFixed(1));
+          element.price7d = parseFloat(elemento.price_change_percentage_7d_in_currency.toFixed(1));
         }
       });
     });
     this.savedLocalStorage();
-  }
-
-  sortArrayGraph(data: any[]): void {
-    data.sort((a: any, b: any) => (b.value || b.dolares) - (a.value || a.dolares));
   }
 
   savedLocalStorage(): void {

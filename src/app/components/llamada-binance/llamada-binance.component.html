@@ -36,16 +36,16 @@
     <table class="table table-hover">
       <thead>
           <tr>
-              <td class="align-item fixed-row" scope="col">Rank</td>
-              <td class="fixed-row" scope="col">Symbol ==> {{listCrypto.length}}</td>
+              <td (click)="orderByRank()" class="align-item fixed-row" scope="col">Rank</td>
+              <td class="fixed-row" scope="col">Symbol ==> {{listCrypto.length}} Coins</td>
               <td class="align-item fixed-row" scope="col">Price</td>
-              <td class="align-item fixed-row" scope="col">1h</td>
-              <td class="align-item fixed-row" scope="col">24h</td>
-              <td class="align-item fixed-row" scope="col">7d</td>
+              <td (click)="orderBy1h()" class="align-item fixed-row" scope="col">1h</td>
+              <td (click)="orderBy24h()" class="align-item fixed-row" scope="col">24h</td>
+              <td (click)="orderBy7d()" class="align-item fixed-row" scope="col">7d</td>
               <td class="align-item fixed-row" scope="col">24h Volume</td>
-              <td class="align-item fixed-row" scope="col">Market Cap</td>
+              <td (click)="orderByRank()" class="align-item fixed-row" scope="col">Market Cap</td>
               <td class="align-item fixed-row" scope="col">Amount</td>
-              <td class="align-item fixed-row" scope="col" [ngClass]="{'flash-green': totalAmount > totalAmountPrev, 'flash-red': totalAmount < totalAmountPrev}">${{formatearNumero(totalAmount)}}</td>
+              <td (click)="orderbyUsdt()" class="align-item fixed-row" scope="col" [ngClass]="{'flash-green': totalAmount > totalAmountPrev, 'flash-red': totalAmount < totalAmountPrev}">${{formatearNumero(totalAmount)}}</td>
               <td class="align-item fixed-row" scope="col">Opciones</td>
           </tr>
       </thead>

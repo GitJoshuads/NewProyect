@@ -13,7 +13,6 @@ export class CryptoDetailComponent implements OnInit{
   url: string= '';
   safeTradingViewUrl: any='';
   ngOnInit() {
-    console.log("locura maxima" + this.symbol );
     this.route.paramMap.subscribe((params:any) => {
       this.symbol = params.params['symbol'];
 
@@ -22,5 +21,10 @@ export class CryptoDetailComponent implements OnInit{
     }
       // Hacer algo con el valor de id
 );
+  }
+  handleChildEventInputExitAmount(data:object){
+
+    console.log(data);
+
   }
 }
