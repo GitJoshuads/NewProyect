@@ -6,7 +6,7 @@ import { PopupComponent } from '../popup/popup.component';
 import { PopupEditCryptoComponent } from '../popup-edit-crypto/popup-edit-crypto.component';
 import { cloneDeep } from 'lodash';
 import { PopupCreateCryptoComponent } from '../popup-create-crypto/popup-create-crypto.component';
-import { Observable } from 'rxjs';
+import { ObservableService } from '../../observable.service'
 
 @Component({
   selector: 'app-llamada-binance',
@@ -33,12 +33,14 @@ export class LlamadaBinanceComponent implements OnInit {
   cryptoNameMap: { [key: string]: string } = {};
   lastUpdateDate: Date | null = null;
   sortByAs: boolean = false;
+  mensaje: object = {};
 
   constructor(
     private cryptoPriceService: CryptoPriceService,
     private cryptoPriceServiceCoinmarketcap: CryptoPriceServiceCoinmarketcap,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private observableService: ObservableService
   ) {}
 
   handleChildEventInputPr(evt: any) {
@@ -64,24 +66,18 @@ export class LlamadaBinanceComponent implements OnInit {
     await this.checkAndUpdateData();
     setInterval(() => this.recharge(), 10000);
     setInterval(()=> this.rechargeCoingecko(),200000);
-/*     const miObservable = this.informationComponent.createInformation();
-
-    if (miObservable !== null && miObservable !== undefined) {
-      const miSuscripcion = miObservable.subscribe(
-        (valor:any) => {
-          console.log(`Nuevo valor: ${valor}`);
-          alert('uuuuuu');
-        },
-        (error:any) => {
-          console.error(`Hubo un error: ${error}`);
-          alert('aaaaaa');
-        },
-        () => {
-          console.log('Observación completada');
-          alert('ssssssssss');
-        }
-      );
-    } */
+    this.observableService.miObservable$.subscribe((valor) => {
+      this.createinformation(valor);
+    });
+  }
+  
+  createinformation(data:any){
+    this.listCrypto.forEach(valor=>{
+      if(valor.symbol + 'USDT' === data.symbol){
+        valor.information = data;
+      }
+    });
+    this.savedLocalStorage();
   }
 
   loadFromLocalStorage(): void {

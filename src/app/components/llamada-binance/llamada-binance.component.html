@@ -52,7 +52,7 @@
       <tbody>
           <tr *ngFor="let item of listCrypto">
               <td class="align-item" [ngClass]="{'no-found': item.market_cap_rank === 'X'}">{{item.market_cap_rank}}</td>
-              <td class="pointer-text" [routerLink]="['/detail', item.symbol + 'USDT']" [ngClass]="{'no-found': item.market_cap_rank === 'X'}"><img [src]="item.image" class="imagen-pequena">{{ item.name }} ({{item.symbol}})</td>
+              <td class="pointer-text" (click)="savedLocalStorage()" [routerLink]="['/detail', item.symbol + 'USDT']" [ngClass]="{'no-found': item.market_cap_rank === 'X'}"><img [src]="item.image" class="imagen-pequena">{{ item.name }} ({{item.symbol}})</td>
               <td class="align-item" [ngClass]="{'flash-green': item.price > item.pricePrev, 'flash-red': item.price < item.pricePrev, 'no-found': item.market_cap_rank === 'X'}">${{ item.price }}</td>
               <td class="align-item" [ngClass]="{'text-success': item.price1h > 0,'text-danger': item.price1h < 0,'no-found': item.market_cap_rank === 'X'}">{{ item.price1h | number:'1.1-1' }}%</td>
               <td class="align-item" [ngClass]="{'text-success': item.price24h > 0,'text-danger': item.price24h < 0,'no-found': item.market_cap_rank === 'X'}">{{ item.price24h | number:'1.1-1'}}%</td>

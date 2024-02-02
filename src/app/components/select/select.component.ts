@@ -12,12 +12,18 @@ export class SelectComponent {
   @Output() childEvent = new EventEmitter<string>();
   constructor(){}
   selectedValue:any;
+  dataValue:any;
 
   onInputChange(){
    this.childEvent.emit(this.selectedValue);
   }
   ngOnInit():void{
-    console.log(this.dataPopupEditCrypto);
-    this.selectedValue = this.dataPopupEditCrypto['dataCrypto']['dataAmount'][0];
+    if(this.dataPopupEditCrypto && this.dataPopupEditCrypto['dataCrypto']){
+      this.selectedValue = this.dataPopupEditCrypto['dataCrypto']['dataAmount'][0];
+      this.dataValue = this.dataPopupEditCrypto['dataCrypto']['dataAmount'];
+    } else {
+      this.selectedValue = this.dataPopupEditCrypto[0];
+      this.dataValue = this.dataPopupEditCrypto;
+    }
   }
 }

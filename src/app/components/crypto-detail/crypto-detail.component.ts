@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-crypto-detail',
@@ -21,10 +21,5 @@ export class CryptoDetailComponent implements OnInit{
     }
       // Hacer algo con el valor de id
 );
-  }
-  handleChildEventInputExitAmount(data:object){
-
-    console.log(data);
-
   }
 }
