@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LlamadaBinanceComponent } from './components/llamada-binance/llamada-binance.component'
 import { CryptocurrencyListComponent} from './components/cryptocurrency-list/cryptocurrency-list.component';
 import { CryptoDetailComponent} from './components/crypto-detail/crypto-detail.component';
+import { AirdropsComponent} from './components/airdrops/airdrops.component';
 
 const routes: Routes = [
   { path: '', component: CryptocurrencyListComponent },
   { path: 'about', component: LlamadaBinanceComponent },
   { path: 'detail/:symbol', component: CryptoDetailComponent },
+  { path: 'airdrops', component: AirdropsComponent },
 ];
 
 @NgModule({

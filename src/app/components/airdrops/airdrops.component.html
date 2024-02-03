@@ -1,0 +1,14 @@
+<div>
+    <mat-button-toggle-group [(ngModel)]="selectedValue" (change)="checkCreateOrList(selectedValue)" appearance="legacy"
+        name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="true">Crear Airdrop</mat-button-toggle>
+        <mat-button-toggle value="false">Listar Airdrops</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div *ngIf="selectedValue">
+        <h1>En construcción</h1>
+        <app-list-airdrop [airdrops]="storedDataAirdrop"></app-list-airdrop>
+    </div>
+    <div *ngIf="!selectedValue">
+        <app-create-airdrop></app-create-airdrop>
+    </div>
+</div>

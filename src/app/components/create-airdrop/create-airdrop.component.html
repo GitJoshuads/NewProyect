@@ -1,0 +1,14 @@
+<p>airdrops works!</p>
+
+<div class="margin-left">
+    <p><app-input [placeholder]="{data:'Crypto', type:'string'}" (childEvent)="crypto($event)"></app-input></p>
+    <p><app-input [placeholder]="{data:'Amount', type:'number'}" (childEvent)="amoutCrypto($event)"></app-input></p>
+    <p><app-input [placeholder]="{data:'Price', type:'number'}" (childEvent)="priceCryto($event)"></app-input></p>
+    <p><app-input [placeholder]="{data:'Fecha', type:'number'}" (childEvent)="fecha($event)"></app-input></p>
+    <p>
+        <app-input [placeholder]="{data:'AmountInversionUSDT', type:'number'}" (childEvent)="amountInversionUSDT($event)"></app-input>
+        <button (click)="createInformation()" mat-button>Crear</button>
+    </p>
+    <textarea [(ngModel)]="contenidoTextarea" cols="30" rows="10"></textarea>
+
+</div>

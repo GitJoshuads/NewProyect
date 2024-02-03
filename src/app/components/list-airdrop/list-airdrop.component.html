@@ -1,0 +1,26 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td  class="align-item fixed-row" scope="col">Crypto</td>
+            <td class="fixed-row" scope="col">Amount</td>
+            <td class="align-item fixed-row" scope="col">Price</td>
+            <td  class="align-item fixed-row" scope="col">Inversion</td>
+            <td  class="align-item fixed-row" scope="col">Info</td>
+            <td  class="align-item fixed-row" scope="col">Option</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of airdrops">
+            <td class="align-item">{{item.cryptomoneda}}</td>
+            <td class="pointer-text">{{ item.amount }}</td>
+            <td class="align-item">${{ item.price }}</td>
+            <td class="align-item">{{ item.amountInversion }}</td>
+            <td class="align-item">{{ item.information }}</td>
+        
+            <td class="align-item">
+              <button class="deleteCard"  mat-raised-button>Editar</button>
+              <button class="deleteCard"  mat-raised-button>Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

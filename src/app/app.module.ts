@@ -26,6 +26,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FollowUpComponent } from './components/follow-up/follow-up.component';
 import { PopupCreateCryptoComponent } from './components/popup-create-crypto/popup-create-crypto.component';
 import { InformationComponent } from './components/information/information.component';
+import { AirdropsComponent } from './components/airdrops/airdrops.component';
+import { CreateAirdropComponent } from './components/create-airdrop/create-airdrop.component';
+import { ListAirdropComponent } from './components/list-airdrop/list-airdrop.component';
 
 
 
@@ -47,7 +50,10 @@ import { InformationComponent } from './components/information/information.compo
     FooterComponent,
     FollowUpComponent,
     PopupCreateCryptoComponent,
-    InformationComponent
+    InformationComponent,
+    AirdropsComponent,
+    CreateAirdropComponent,
+    ListAirdropComponent
   ],
   imports: [
     BrowserModule,
