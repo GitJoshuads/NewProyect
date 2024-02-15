@@ -268,7 +268,7 @@ export class LlamadaBinanceComponent implements OnInit {
           'market_cap' : elemento.market_cap,
           'price1h' : elemento.price_change_percentage_1h_in_currency.toFixed(1),
           'price24h' : elemento.price_change_percentage_24h_in_currency.toFixed(1),
-          'price7d' : elemento.price_change_percentage_7d_in_currency.toFixed(1), 
+          'price7d' : elemento.price_change_percentage_7d_in_currency != null?elemento.price_change_percentage_7d_in_currency.toFixed(1):'', 
           dataAmount: [{ name: 'OTRO', value: this.eventInputAmout }]
         });
         this.totalAmount = parseFloat((((elementoSaved.price || elemento.current_price) * this.eventInputAmout) + this.totalAmount).toFixed(2));

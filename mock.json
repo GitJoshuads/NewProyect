@@ -1,11 +1,31 @@
 {
-  "lastUpdateDate": "2024-01-15T10:43:17.466Z",
+  "lastUpdateDate": "2024-02-15T15:02:26.766Z",
   "listCrypto": [
     {
-      "price": 2540.83,
+      "price": 52267,
+      "symbol": "BTC",
+      "amount": 0.0896905,
+      "dolares": 4689.62385397,
+      "dataAmount": [
+        {
+          "name": "LG",
+          "value": 0.0896905
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "market_cap_rank": 1,
+      "market_cap": 1025666770238,
+      "price1h": 0.8,
+      "price24h": 1,
+      "price7d": 15.9,
+      "name": "Bitcoin",
+      "pricePrev": "52286.75000000"
+    },
+    {
+      "price": 2825.92,
       "symbol": "ETH",
       "amount": 3.46609,
-      "dolares": 8814.752122599999,
+      "dolares": 9789.589935099999,
       "dataAmount": [
         {
           "name": "LG",
@@ -18,241 +38,23 @@
       ],
       "image": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
       "market_cap_rank": 2,
-      "market_cap": 305326940633,
-      "price1h": 0.4,
-      "price24h": 0.1,
-      "price7d": 14,
+      "market_cap": 340116779660,
+      "price1h": 0.5,
+      "price24h": 2.9,
+      "price7d": 16.5,
       "name": "Ethereum",
-      "pricePrev": "2542.80000000"
+      "pricePrev": "2824.03000000",
+      "information": {
+        "symbol": "ETHUSDT",
+        "enterPrice": 1800,
+        "enterAmount": 3.45829
+      }
     },
     {
-      "price": 42674,
-      "symbol": "BTC",
-      "amount": 0.0896905,
-      "dolares": 3830.3260806200005,
-      "dataAmount": [
-        {
-          "name": "LG",
-          "value": 0.0896905
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-      "market_cap_rank": 1,
-      "market_cap": 835806310097,
-      "price1h": 0.3,
-      "price24h": -0.3,
-      "price7d": -3.3,
-      "name": "Bitcoin",
-      "pricePrev": "42698.01000000"
-    },
-    {
-      "price": 1.001,
-      "symbol": "USDC",
-      "amount": 1502.6264403,
-      "dolares": 1503.52801616418,
-      "dataAmount": [
-        {
-          "name": "LG",
-          "value": 1500
-        },
-        {
-          "name": "MEXC",
-          "value": 2.6264403
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
-      "market_cap_rank": 7,
-      "market_cap": 25525416258,
-      "price1h": 0.1,
-      "price24h": 0.1,
-      "price7d": -0.2,
-      "name": "USDC",
-      "pricePrev": "1.00060000"
-    },
-    {
-      "price": 7.93,
-      "symbol": "AXS",
-      "amount": 176.7488,
-      "dolares": 1406.9204479999999,
-      "dataAmount": [
-        {
-          "name": "Staking-AXS",
-          "value": 176.7488
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/13029/large/axie_infinity_logo.png?1696512817",
-      "market_cap_rank": 67,
-      "market_cap": 1074729296,
-      "price1h": -0.1,
-      "price24h": -1.9,
-      "price7d": 9.8,
-      "name": "Axie Infinity",
-      "pricePrev": "7.96000000"
-    },
-    {
-      "price": 0.536063,
-      "symbol": "ADA",
-      "amount": 2181.914,
-      "dolares": 1173.4333492,
-      "dataAmount": [
-        {
-          "name": "Staking-ADA",
-          "value": 2181.914
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/975/large/cardano.png?1696502090",
-      "market_cap_rank": 9,
-      "market_cap": 18809298465,
-      "price1h": -0.3,
-      "price24h": -1.5,
-      "price7d": 8.5,
-      "name": "Cardano",
-      "pricePrev": "0.53760000"
-    },
-    {
-      "price": 36.28,
-      "symbol": "AVAX",
-      "amount": 26.961027,
-      "dolares": 982.7294341500001,
-      "dataAmount": [
-        {
-          "name": "API-AVAX",
-          "value": 26.961027
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369",
-      "market_cap_rank": 10,
-      "market_cap": 13280331280,
-      "price1h": -0.1,
-      "price24h": -0.4,
-      "price7d": 9.6,
-      "name": "Avalanche",
-      "pricePrev": "36.46000000"
-    },
-    {
-      "price": 0.079094,
-      "symbol": "HBAR",
-      "amount": 9638.53,
-      "dolares": 764.335429,
-      "dataAmount": [
-        {
-          "name": "OTRO",
-          "value": 9638.53
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/3688/large/hbar.png?1696504364",
-      "market_cap_rank": 39,
-      "market_cap": 2666330129,
-      "price1h": -0.3,
-      "price24h": -0.9,
-      "price7d": 3,
-      "name": "Hedera",
-      "pricePrev": "0.07920000"
-    },
-    {
-      "price": 2.95,
-      "symbol": "CAKE",
-      "amount": 254,
-      "dolares": 751.078,
-      "dataAmount": [
-        {
-          "name": "Staking-CAKE",
-          "value": 254
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440",
-      "market_cap_rank": 94,
-      "market_cap": 747990737,
-      "price1h": 0.2,
-      "price24h": 0.3,
-      "price7d": 4.8,
-      "name": "PancakeSwap",
-      "pricePrev": "2.95500000"
-    },
-    {
-      "symbol": "SAUCE",
-      "price": 0.07125,
-      "amount": 8521.87,
-      "dolares": 607.1832375,
-      "dataAmount": [
-        {
-          "name": "EXCHANGE",
-          "value": 8521.87
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
-      "market_cap_rank": "X",
-      "market_cap": 0,
-      "price1h": "0",
-      "price24h": "0",
-      "price7d": "0",
-      "name": "SAUCER"
-    },
-    {
-      "price": 0.03031123,
-      "symbol": "VET",
-      "amount": 19701,
-      "dolares": 599.10741,
-      "dataAmount": [
-        {
-          "name": "API-VET",
-          "value": 19701
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/1167/large/VET_Token_Icon.png?1696502256",
-      "market_cap_rank": 44,
-      "market_cap": 2204575404,
-      "price1h": -0.1,
-      "price24h": -0.6,
-      "price7d": 0.5,
-      "name": "VeChain",
-      "pricePrev": "0.03040000"
-    },
-    {
-      "price": 1.045,
-      "symbol": "THETA",
-      "amount": 570.25,
-      "dolares": 597.6220000000001,
-      "dataAmount": [
-        {
-          "name": "LG",
-          "value": 570.25
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/2538/large/theta-token-logo.png?1696503349",
-      "market_cap_rank": 73,
-      "market_cap": 1045869321,
-      "price1h": 0,
-      "price24h": -0.8,
-      "price7d": 2.3,
-      "name": "Theta Network",
-      "pricePrev": "1.04700000"
-    },
-    {
-      "price": 0.862705,
-      "symbol": "MATIC",
-      "amount": 625.182,
-      "dolares": 541.5951666,
-      "dataAmount": [
-        {
-          "name": "LG",
-          "value": 625.182
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/4713/large/polygon.png?1698233745",
-      "market_cap_rank": 16,
-      "market_cap": 8014334212,
-      "price1h": 0,
-      "price24h": -0.4,
-      "price7d": 9.7,
-      "name": "Polygon",
-      "pricePrev": "0.86620000"
-    },
-    {
-      "price": 313.19,
+      "price": 355.56,
       "symbol": "BNB",
       "amount": 0.6998,
-      "dolares": 219.31731999999997,
+      "dolares": 248.49898000000002,
       "dataAmount": [
         {
           "name": "METAMASK",
@@ -261,38 +63,123 @@
       ],
       "image": "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970",
       "market_cap_rank": 4,
-      "market_cap": 48259212049,
-      "price1h": 0,
-      "price24h": 3.1,
-      "price7d": 4.7,
+      "market_cap": 54736629157,
+      "price1h": -0.6,
+      "price24h": 6.6,
+      "price7d": 12.5,
       "name": "BNB",
-      "pricePrev": "313.30000000"
+      "pricePrev": "355.00000000"
     },
     {
-      "price": 1.76,
-      "amount": 103.3178,
-      "dolares": 181.83932800000002,
-      "image": "https://assets.coingecko.com/coins/images/20009/large/Ronin_Mark_Blue.png?1696519431",
-      "name": "Ronin",
-      "symbol": "RON",
-      "symbolC": "RONUSDT",
-      "market_cap_rank": 128,
-      "market_cap": 502265828,
-      "price1h": -1.2,
-      "price24h": -3.4,
-      "price7d": 3.9,
+      "price": 0.999941,
+      "symbol": "USDC",
+      "amount": 285.6264403,
+      "dolares": 285.51218972388,
       "dataAmount": [
         {
-          "name": "OTRO",
-          "value": 103.3178
+          "name": "LG",
+          "value": 283
+        },
+        {
+          "name": "MEXC-EXCHANGE",
+          "value": 2.6264403
         }
-      ]
+      ],
+      "image": "https://assets.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
+      "market_cap_rank": 7,
+      "market_cap": 28076762631,
+      "price1h": -0.2,
+      "price24h": -0.1,
+      "price7d": -0.1,
+      "name": "USDC",
+      "pricePrev": "0.99970000"
     },
     {
-      "price": 10.08,
+      "price": 0.604983,
+      "symbol": "ADA",
+      "amount": 2181.914,
+      "dolares": 1318.5306302,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 2181.914
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/975/large/cardano.png?1696502090",
+      "market_cap_rank": 9,
+      "market_cap": 21278511134,
+      "price1h": 0.9,
+      "price24h": 5.8,
+      "price7d": 15.2,
+      "name": "Cardano",
+      "pricePrev": "0.60420000"
+    },
+    {
+      "price": 41.98,
+      "symbol": "AVAX",
+      "amount": 26.961027,
+      "dolares": 1132.3631340000002,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 26.961027
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369",
+      "market_cap_rank": 10,
+      "market_cap": 15398028519,
+      "price1h": 0.7,
+      "price24h": 1.2,
+      "price7d": 18.3,
+      "name": "Avalanche",
+      "pricePrev": "41.99000000"
+    },
+    {
+      "price": 7.77,
+      "amount": 36,
+      "dolares": 279.90000000000003,
+      "image": "https://assets.coingecko.com/coins/images/12171/large/polkadot.png?1696512008",
+      "name": "Polkadot",
+      "symbol": "DOT",
+      "symbolC": "DOTUSDT",
+      "market_cap_rank": 14,
+      "market_cap": 10329756441,
+      "price1h": -0.1,
+      "price24h": 2.7,
+      "price7d": 11.8,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 36
+        }
+      ],
+      "pricePrev": "7.77600000"
+    },
+    {
+      "price": 0.889393,
+      "symbol": "MATIC",
+      "amount": 625.182,
+      "dolares": 556.5370164,
+      "dataAmount": [
+        {
+          "name": "LG",
+          "value": 625.182
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/4713/large/polygon.png?1698233745",
+      "market_cap_rank": 15,
+      "market_cap": 8260726823,
+      "price1h": -0.2,
+      "price24h": 1.2,
+      "price7d": 7.5,
+      "name": "Polygon",
+      "pricePrev": "0.89020000"
+    },
+    {
+      "price": 10.26,
       "symbol": "ATOM",
       "amount": 17.8501,
-      "dolares": 180.28601,
+      "dolares": 183.320527,
       "dataAmount": [
         {
           "name": "LG",
@@ -301,100 +188,365 @@
       ],
       "image": "https://assets.coingecko.com/coins/images/1481/large/cosmos_hub.png?1696502525",
       "market_cap_rank": 25,
-      "market_cap": 3857637486,
-      "price1h": -0.2,
-      "price24h": -0.7,
-      "price7d": 7.5,
-      "name": "Cosmos Hub",
-      "pricePrev": "10.09600000"
-    },
-    {
-      "price": 0.245227,
-      "symbol": "IOTA",
-      "amount": 638,
-      "dolares": 156.8204,
-      "dataAmount": [
-        {
-          "name": "API-IOTA",
-          "value": 638
-        }
-      ],
-      "image": "https://assets.coingecko.com/coins/images/692/large/IOTA_Swirl.png?1696501881",
-      "market_cap_rank": 92,
-      "market_cap": 759376970,
-      "price1h": -0.1,
-      "price24h": -0.1,
-      "price7d": 3.6,
-      "name": "IOTA",
-      "pricePrev": "0.24580000"
-    },
-    {
-      "price": 3.88,
-      "amount": 36.65,
-      "dolares": 142.202,
-      "image": "https://assets.coingecko.com/coins/images/20685/large/kuji-200x200.png?1696520085",
-      "name": "Kujira",
-      "symbol": "KUJI",
-      "symbolC": "KUJIUSDT",
-      "market_cap_rank": 134,
-      "market_cap": 475142372,
+      "market_cap": 3934336030,
       "price1h": 0.5,
-      "price24h": -3,
-      "price7d": -9.6,
-      "dataAmount": [
-        {
-          "name": "OTRO",
-          "value": 36.65
-        }
-      ]
+      "price24h": 0.9,
+      "price7d": 8.2,
+      "name": "Cosmos Hub",
+      "pricePrev": "10.26800000"
     },
     {
-      "price": 10.28,
+      "price": 10.5,
       "amount": 10.97,
-      "dolares": 111.83805300000002,
+      "dolares": 115.02483800000002,
       "image": "https://assets.coingecko.com/coins/images/26455/large/aptos_round.png?1696525528",
       "name": "Aptos",
       "symbol": "APT",
       "symbolC": "APTUSDT",
-      "market_cap_rank": 29,
-      "market_cap": 3415271736,
-      "price1h": -0.9,
-      "price24h": 6.9,
-      "price7d": 23.5,
+      "market_cap_rank": 28,
+      "market_cap": 3837322621,
+      "price1h": -0.3,
+      "price24h": 11.8,
+      "price7d": 19.7,
       "dataAmount": [
         {
-          "name": "OTRO",
+          "name": "MEXC-EXCHANGE",
           "value": 10.97
         }
       ],
-      "pricePrev": "10.19830000"
+      "pricePrev": "10.48520000"
     },
     {
-      "price": 118.29,
+      "price": 26.72,
+      "amount": 1.9,
+      "dolares": 50.73,
+      "image": "https://assets.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717",
+      "name": "Ethereum Classic",
+      "symbol": "ETC",
+      "symbolC": "ETCUSDT",
+      "market_cap_rank": 29,
+      "market_cap": 3832405773,
+      "price1h": 0,
+      "price24h": 0.1,
+      "price7d": 6.1,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 1.9
+        }
+      ],
+      "pricePrev": "26.70000000"
+    },
+    {
+      "price": 0.04439149,
+      "symbol": "VET",
+      "amount": 19701,
+      "dolares": 877.0885199999999,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 19701
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/1167/large/VET_Token_Icon.png?1696502256",
+      "market_cap_rank": 34,
+      "market_cap": 3212824820,
+      "price1h": 1.4,
+      "price24h": 28.4,
+      "price7d": 53.9,
+      "name": "VeChain",
+      "pricePrev": "0.04453000"
+    },
+    {
+      "price": 0.083231,
+      "symbol": "HBAR",
+      "amount": 9638.53,
+      "dolares": 800.961843,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 9638.53
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/3688/large/hbar.png?1696504364",
+      "market_cap_rank": 42,
+      "market_cap": 2800647246,
+      "price1h": 0.7,
+      "price24h": 1.9,
+      "price7d": 9.4,
+      "name": "Hedera",
+      "pricePrev": "0.08320000"
+    },
+    {
+      "price": 5.71,
+      "amount": 25.8,
+      "dolares": 147.318,
+      "image": "https://assets.coingecko.com/coins/images/6595/large/Rune200x200.png?1696506946",
+      "name": "THORChain",
+      "symbol": "RUNE",
+      "symbolC": "RUNEUSDT",
+      "market_cap_rank": 52,
+      "market_cap": 1717008636,
+      "price1h": 1.5,
+      "price24h": 3.3,
+      "price7d": 21.8,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 25.8
+        }
+      ],
+      "pricePrev": "5.71100000"
+    },
+    {
+      "price": 108.98,
       "amount": 0.81,
-      "dolares": 95.90400000000001,
+      "dolares": 88.20900000000002,
       "image": "https://assets.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070",
       "name": "Quant",
       "symbol": "QNT",
       "symbolC": "QNTUSDT",
-      "market_cap_rank": 49,
-      "market_cap": 1722321840,
-      "price1h": -0.1,
-      "price24h": -0.3,
-      "price7d": 5.5,
+      "market_cap_rank": 55,
+      "market_cap": 1585757948,
+      "price1h": 0.5,
+      "price24h": 3.9,
+      "price7d": 6,
       "dataAmount": [
         {
-          "name": "OTRO",
+          "name": "MEXC-EXCHANGE",
           "value": 0.81
         }
       ],
-      "pricePrev": "118.40000000"
+      "pricePrev": "108.90000000"
+    },
+    {
+      "price": 8.03,
+      "amount": 22,
+      "dolares": 177.958,
+      "image": "https://assets.coingecko.com/coins/images/34182/large/dym.png?1704253006",
+      "name": "Dymension",
+      "symbol": "DYM",
+      "symbolC": "DYMUSDT",
+      "market_cap_rank": 71,
+      "market_cap": 1171852583,
+      "price1h": 0.4,
+      "price24h": -1.7,
+      "price7d": 3.6,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 22
+        }
+      ],
+      "pricePrev": "8.08700000"
+    },
+    {
+      "price": 1.13,
+      "symbol": "THETA",
+      "amount": 570.25,
+      "dolares": 643.242,
+      "dataAmount": [
+        {
+          "name": "LG",
+          "value": 570.25
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/2538/large/theta-token-logo.png?1696503349",
+      "market_cap_rank": 73,
+      "market_cap": 1127510019,
+      "price1h": -0.1,
+      "price24h": 3.6,
+      "price7d": 14.1,
+      "name": "Theta Network",
+      "pricePrev": "1.12800000"
+    },
+    {
+      "price": 8.08,
+      "symbol": "AXS",
+      "amount": 176.7488,
+      "dolares": 1424.595328,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 176.7488
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/13029/large/axie_infinity_logo.png?1696512817",
+      "market_cap_rank": 75,
+      "market_cap": 1107088929,
+      "price1h": 0.5,
+      "price24h": 3.3,
+      "price7d": 13,
+      "name": "Axie Infinity",
+      "pricePrev": "8.07000000"
+    },
+    {
+      "price": 10.67,
+      "amount": 8.5,
+      "dolares": 90.78,
+      "image": "https://assets.coingecko.com/coins/images/1047/large/sa9z79.png?1696502152",
+      "name": "KuCoin",
+      "symbol": "KCS",
+      "symbolC": "KCSUSDT",
+      "market_cap_rank": 77,
+      "market_cap": 1030234341,
+      "price1h": -0.1,
+      "price24h": -0.3,
+      "price7d": 7.6,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 8.5
+        }
+      ]
+    },
+    {
+      "price": 0.107469,
+      "amount": 3189,
+      "dolares": 342.88128,
+      "image": "https://assets.coingecko.com/coins/images/8834/large/CHZ_Token_updated.png?1696508986",
+      "name": "Chiliz",
+      "symbol": "CHZ",
+      "symbolC": "CHZUSDT",
+      "market_cap_rank": 86,
+      "market_cap": 954450393,
+      "price1h": 0.7,
+      "price24h": 3.8,
+      "price7d": 6.8,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 3189
+        }
+      ],
+      "pricePrev": "0.10752000"
+    },
+    {
+      "price": 0.273294,
+      "symbol": "IOTA",
+      "amount": 638,
+      "dolares": 174.68439999999998,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 638
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/692/large/IOTA_Swirl.png?1696501881",
+      "market_cap_rank": 96,
+      "market_cap": 855240850,
+      "price1h": 0.9,
+      "price24h": 0.9,
+      "price7d": 10.1,
+      "name": "IOTA",
+      "pricePrev": "0.27380000"
+    },
+    {
+      "price": 2.9,
+      "amount": 144,
+      "dolares": 416.16,
+      "image": "https://assets.coingecko.com/coins/images/20009/large/Ronin_Mark_Blue.png?1696519431",
+      "name": "Ronin",
+      "symbol": "RON",
+      "symbolC": "RONUSDT",
+      "market_cap_rank": 94,
+      "market_cap": 859037014,
+      "price1h": 1.7,
+      "price24h": 6.4,
+      "price7d": 13.1,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 144
+        }
+      ]
+    },
+    {
+      "price": 0.126491,
+      "amount": 1300,
+      "dolares": 164.38500000000002,
+      "image": "https://assets.coingecko.com/coins/images/13162/large/rose.png?1696512946",
+      "name": "Oasis Network",
+      "symbol": "ROSE",
+      "symbolC": "ROSEUSDT",
+      "market_cap_rank": 97,
+      "market_cap": 850212843,
+      "price1h": 0.4,
+      "price24h": -0.9,
+      "price7d": 8.3,
+      "dataAmount": [
+        {
+          "name": "KUCOIN-EXCHANGE",
+          "value": 1300
+        }
+      ],
+      "pricePrev": "0.12645000"
+    },
+    {
+      "price": 2.8,
+      "symbol": "CAKE",
+      "amount": 254,
+      "dolares": 709.422,
+      "dataAmount": [
+        {
+          "name": "METAMASK",
+          "value": 254
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440",
+      "market_cap_rank": 118,
+      "market_cap": 654111402,
+      "price1h": 0.2,
+      "price24h": 5.5,
+      "price7d": 12.1,
+      "name": "PancakeSwap",
+      "pricePrev": "2.79400000"
+    },
+    {
+      "price": 3.63,
+      "amount": 157,
+      "dolares": 569.91,
+      "image": "https://assets.coingecko.com/coins/images/20685/large/kuji-200x200.png?1696520085",
+      "name": "Kujira",
+      "symbol": "KUJI",
+      "symbolC": "KUJIUSDT",
+      "market_cap_rank": 154,
+      "market_cap": 444432610,
+      "price1h": 0.7,
+      "price24h": 1.9,
+      "price7d": 2.3,
+      "dataAmount": [
+        {
+          "name": "MEXC-EXCHANGE",
+          "value": 157
+        }
+      ]
+    },
+    {
+      "price": 0.04510449,
+      "symbol": "TFUEL",
+      "dolares": 41.851753519999995,
+      "dataAmount": [
+        {
+          "name": "LG",
+          "value": 929.213
+        }
+      ],
+      "amount": 929.213,
+      "image": "https://assets.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1696508251",
+      "market_cap_rank": 208,
+      "market_cap": 291044900,
+      "price1h": 0.3,
+      "price24h": 3.7,
+      "price7d": 10,
+      "name": "Theta Fuel",
+      "pricePrev": "0.04504000"
     },
     {
       "symbol": "VLX",
-      "price": 0.0285,
+      "price": 0.02022,
       "amount": 1568.2778,
-      "dolares": 44.695917300000005,
+      "dolares": 31.710577116,
       "dataAmount": [
         {
           "name": "METAMASK",
@@ -410,24 +562,66 @@
       "name": "VELAS"
     },
     {
-      "price": 0.04403443,
-      "symbol": "TFUEL",
-      "dolares": 41.034046079999996,
+      "symbol": "VV",
+      "price": 0.009021,
+      "amount": 7139,
+      "dolares": 64.400919,
       "dataAmount": [
         {
-          "name": "LG",
-          "value": 929.213
+          "name": "MEXC-EXCHANGE",
+          "value": 7139
         }
       ],
-      "amount": 929.213,
-      "image": "https://assets.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1696508251",
-      "market_cap_rank": 193,
-      "market_cap": 282706433,
-      "price1h": 0.3,
-      "price24h": -1.4,
-      "price7d": 3.6,
-      "name": "Theta Fuel",
-      "pricePrev": "0.04415000"
+      "image": "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
+      "market_cap_rank": "X",
+      "market_cap": 0,
+      "price1h": "0",
+      "price24h": "0",
+      "price7d": "0",
+      "name": "VIRTUAL VERSIONS"
+    },
+    {
+      "symbol": "CGPT",
+      "price": 0.2334,
+      "amount": 456,
+      "dolares": 106.43039999999999,
+      "dataAmount": [
+        {
+          "name": "MEXC-EXCHANGE",
+          "value": 456
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
+      "market_cap_rank": "X",
+      "market_cap": 0,
+      "price1h": "0",
+      "price24h": "0",
+      "price7d": "0",
+      "name": "CHAINGPT"
+    },
+    {
+      "symbol": "SAUCE",
+      "price": 0.097,
+      "amount": 8521.87,
+      "dolares": 826.6213900000001,
+      "dataAmount": [
+        {
+          "name": "Staking",
+          "value": 8521.87
+        }
+      ],
+      "image": "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
+      "market_cap_rank": "X",
+      "market_cap": 0,
+      "price1h": "0",
+      "price24h": "0",
+      "price7d": "0",
+      "name": "SAUCER",
+      "information": {
+        "symbol": "SAUCEUSDT",
+        "enterPrice": 0.05,
+        "enterAmount": 8521.87
+      }
     }
   ]
 }

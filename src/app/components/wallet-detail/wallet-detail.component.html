@@ -1,0 +1,14 @@
+<div *ngFor="let group of groupedCryptoData">
+    <div class="card" (click)="toggleList(group)">
+      <div class="card-header">
+        {{ group.name }} - Total: {{ calculateTotal(group.cryptoList) }}
+      </div>
+      <div *ngIf="group.showList" class="card-body">
+        <ul>
+          <li *ngFor="let crypto of group.cryptoList">
+            {{ crypto.name }} - Amount: {{ crypto.amount }} - Price: {{ crypto.dolares }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>

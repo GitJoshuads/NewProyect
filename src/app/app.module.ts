@@ -29,6 +29,8 @@ import { InformationComponent } from './components/information/information.compo
 import { AirdropsComponent } from './components/airdrops/airdrops.component';
 import { CreateAirdropComponent } from './components/create-airdrop/create-airdrop.component';
 import { ListAirdropComponent } from './components/list-airdrop/list-airdrop.component';
+import { PopupEditAirdropComponent } from './components/popup-edit-airdrop/popup-edit-airdrop.component';
+import { WalletDetailComponent } from './components/wallet-detail/wallet-detail.component';
 
 
 
@@ -53,7 +55,9 @@ import { ListAirdropComponent } from './components/list-airdrop/list-airdrop.com
     InformationComponent,
     AirdropsComponent,
     CreateAirdropComponent,
-    ListAirdropComponent
+    ListAirdropComponent,
+    PopupEditAirdropComponent,
+    WalletDetailComponent
   ],
   imports: [
     BrowserModule,
