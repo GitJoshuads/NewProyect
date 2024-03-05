@@ -31,6 +31,10 @@ import { CreateAirdropComponent } from './components/create-airdrop/create-airdr
 import { ListAirdropComponent } from './components/list-airdrop/list-airdrop.component';
 import { PopupEditAirdropComponent } from './components/popup-edit-airdrop/popup-edit-airdrop.component';
 import { WalletDetailComponent } from './components/wallet-detail/wallet-detail.component';
+import { ListArkhamComponent } from './components/list-arkham/list-arkham.component';
+import { CreateArkhamComponent } from './components/create-arkham/create-arkham.component';
+import { HerramientasComponent } from './components/herramientas/herramientas.component';
+import { ArkhamComponent } from './components/arkham/arkham.component';
 
 
 
@@ -57,7 +61,11 @@ import { WalletDetailComponent } from './components/wallet-detail/wallet-detail.
     CreateAirdropComponent,
     ListAirdropComponent,
     PopupEditAirdropComponent,
-    WalletDetailComponent
+    WalletDetailComponent,
+    ListArkhamComponent,
+    CreateArkhamComponent,
+    HerramientasComponent,
+    ArkhamComponent
   ],
   imports: [
     BrowserModule,

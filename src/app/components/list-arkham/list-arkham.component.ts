@@ -3,11 +3,11 @@ import { PopupComponent } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-list-airdrop',
-  templateUrl: './list-airdrop.component.html',
-  styleUrls: ['./list-airdrop.component.scss']
+  selector: 'app-list-arkham',
+  templateUrl: './list-arkham.component.html',
+  styleUrls: ['./list-arkham.component.scss']
 })
-export class ListAirdropComponent implements OnInit{
+export class ListArkhamComponent implements OnInit{
   @Input() airdrops: any;
   constructor(public dialog: MatDialog){}
   ngOnInit(): void {
@@ -38,3 +38,4 @@ export class ListAirdropComponent implements OnInit{
     localStorage.setItem('airdrops', JSON.stringify(this.airdrops));
   }
 }
+

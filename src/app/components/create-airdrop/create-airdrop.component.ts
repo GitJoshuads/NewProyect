@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-create-airdrop',
   templateUrl: './create-airdrop.component.html',
   styleUrls: ['./create-airdrop.component.scss']
 })
-export class CreateAirdropComponent {
+export class CreateAirdropComponent implements OnInit{
   cryptoVar: any;
   amoutCryptoVar: any;
   priceCrytoVar: any;
@@ -14,9 +14,19 @@ export class CreateAirdropComponent {
   contenidoTextarea: string = '';
   amountInversionUSDTVar: any;
   fechaVar: any;
+  dataLocal:any;
 
 
   constructor(){}
+
+  ngOnInit(): void {
+    let storedData = localStorage.getItem('airdrops');
+    try {
+      this.dataLocal = storedData ? JSON.parse(storedData) : [];
+    } catch (error) {
+      console.error('No disponemos de airdrops');
+    }
+  }
 
   createInformation(){
     if(this.cryptoVar && this.amoutCryptoVar && this.priceCrytoVar){
@@ -45,7 +55,8 @@ export class CreateAirdropComponent {
   }
 
   savedLocalStorage(): void {
-    this.createInformationVar = [{ cryptomoneda: this.cryptoVar, amount: this.amoutCryptoVar, price: this.priceCrytoVar, amountInversion: this.amountInversionUSDTVar, information: this.contenidoTextarea? this.contenidoTextarea: undefined }];
-    localStorage.setItem('airdrops', JSON.stringify(this.createInformationVar));
+    this.createInformationVar = { cryptomoneda: this.cryptoVar, amount: this.amoutCryptoVar, price: this.priceCrytoVar, amountInversion: this.amountInversionUSDTVar, information: this.contenidoTextarea? this.contenidoTextarea: undefined };
+    this.dataLocal.push(this.createInformationVar);
+    localStorage.setItem('airdrops', JSON.stringify(this.dataLocal));
   }
 }

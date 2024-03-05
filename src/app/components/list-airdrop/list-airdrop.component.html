@@ -19,7 +19,7 @@
         
             <td class="align-item">
               <button class="deleteCard"  mat-raised-button>Editar</button>
-              <button class="deleteCard"  mat-raised-button>Eliminar</button>
+              <button class="deleteCard" (click)="openDialog('0ms', '0ms', item.cryptomoneda)" mat-raised-button>Eliminar</button>
             </td>
         </tr>
     </tbody>

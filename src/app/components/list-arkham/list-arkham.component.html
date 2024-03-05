@@ -1,0 +1,21 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <td  class="align-item fixed-row" scope="col">Arkham</td>
+            <td  class="align-item fixed-row" scope="col">Info</td>
+            <td  class="align-item fixed-row" scope="col">Option</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of airdrops">
+            <td class="align-item"><a [href]="item.arkham" target="_blank">{{item.arkham}}</a></td>
+
+            <td class="align-item">{{ item.description }}</td>
+        
+            <td class="align-item">
+              <button class="deleteCard"  mat-raised-button>Editar</button>
+              <button class="deleteCard" (click)="openDialog('0ms', '0ms', item.cryptomoneda)" mat-raised-button>Eliminar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
